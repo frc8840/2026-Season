@@ -14,7 +14,7 @@ public class OperatorControl extends Command {
 
   public OperatorControl(Test test) {
     this.test = test;
-
+    addRequirements(test);
     ps4controller = new PS4Controller(Settings.OPERATOR_CONTROLLER_PORT);
   }
 
