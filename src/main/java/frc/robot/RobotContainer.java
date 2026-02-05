@@ -83,6 +83,7 @@ public class RobotContainer {
     // swerve.setDefaultCommand(driverControl);
     test = new Test();
     operatorControl = new OperatorControl(test);
+    test.setDefaultCommand(operatorControl);
     // arm.setDefaultCommand(operatorControl);
     // shooter.setDefaultCommand(operatorControl);
   }

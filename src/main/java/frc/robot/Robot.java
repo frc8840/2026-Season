@@ -33,8 +33,8 @@ public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
 
   RobotContainer container;
-  private LaserCan lc;
-  private PowerDistribution m_pdp;
+  // private LaserCan lc;
+  // private PowerDistribution m_pdp;
   // private ShuffleboardContainer sbContainer;
   private boolean inRange = false;
 
@@ -57,43 +57,43 @@ public class Robot extends TimedRobot {
     Logger.Log("RobotInitRan");
     ctreConfigs = new CTREConfigs();
     container = new RobotContainer();
-    // PWM port 9
-    // Must be a PWM header, not MXP or DIO
-    lc = new LaserCan(42);
-    // sbContainer = Shuffleboard.getTab("Live Window"); //change name to whatever you want
-    m_pdp = new PowerDistribution(1, ModuleType.kCTRE);
-    // Optionally initialise the settings of the LaserCAN, if you haven't already done so in
-    // GrappleHook
-    try {
-      lc.setRangingMode(LaserCan.RangingMode.SHORT);
-      lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-      lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
-    } catch (ConfigurationFailedException e) {
-      System.out.println("Configuration failed! " + e);
-    }
-    // Creates UsbCamera and MjpegServer [1] and connects them
-    HttpCamera photonCamera =
-        new HttpCamera(
-            "PhotonVision", "http://10.88.40.11:1181/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-    // PhotonCamera camera = new PhotonCamera("Arducam_OV2311_USB_CAMERA");
-    // CameraServer.startAutomaticCapture(); // Change path to whatever the camera is
-    // MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
-    // mjpegServer1.setSource(usbCamera);
-    // Shuffleboard.getTab("Camera Stream")
-    //     .addCamera("Driver Camera", "test", "mjpg:http://10.88.40.11:5800/?action=stream")
-    //     .withPosition(2, 0)
-    //     .withSize(3, 3);
-    photonCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    // // PWM port 9
+    // // Must be a PWM header, not MXP or DIO
+    // lc = new LaserCan(42);
+    // // sbContainer = Shuffleboard.getTab("Live Window"); //change name to whatever you want
+    // m_pdp = new PowerDistribution(1, ModuleType.kCTRE);
+    // // Optionally initialise the settings of the LaserCAN, if you haven't already done so in
+    // // GrappleHook
+    // try {
+    //   lc.setRangingMode(LaserCan.RangingMode.SHORT);
+    //   lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+    //   lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+    // } catch (ConfigurationFailedException e) {
+    //   System.out.println("Configuration failed! " + e);
+    // }
+    // // Creates UsbCamera and MjpegServer [1] and connects them
+    // HttpCamera photonCamera =
+    //     new HttpCamera(
+    //         "PhotonVision", "http://10.88.40.11:1181/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+    // // PhotonCamera camera = new PhotonCamera("Arducam_OV2311_USB_CAMERA");
+    // // CameraServer.startAutomaticCapture(); // Change path to whatever the camera is
+    // // MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
+    // // mjpegServer1.setSource(usbCamera);
+    // // Shuffleboard.getTab("Camera Stream")
+    // //     .addCamera("Driver Camera", "test", "mjpg:http://10.88.40.11:5800/?action=stream")
+    // //     .withPosition(2, 0)
+    // //     .withSize(3, 3);
+    // photonCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    CameraServer.addCamera(photonCamera);
+    // CameraServer.addCamera(photonCamera);
 
-    NetworkTableEntry streams =
-        NetworkTableInstance.getDefault()
-            .getTable("CameraPublisher")
-            .getSubTable("PhotonVision")
-            .getEntry("streams");
+    // NetworkTableEntry streams =
+    //     NetworkTableInstance.getDefault()
+    //         .getTable("CameraPublisher")
+    //         .getSubTable("PhotonVision")
+    //         .getEntry("streams");
 
-    streams.setStringArray(new String[] {"mjpeg:http://10.88.40.11:1181/stream.mjpg"});
+    // streams.setStringArray(new String[] {"mjpeg:http://10.88.40.11:1181/stream.mjpg"});
   }
 
   /**
@@ -107,9 +107,9 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
-
+    Logger.Log("robotPeriodic called");
     // CanBridge.runTCP();
-    double voltage = m_pdp.getVoltage();
+    // double voltage = m_pdp.getVoltage();
     // boolean added = false;
     // if (!added) {
     //   Shuffleboard.getTab("LiveWindow")
@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
     //     .withPosition(0, 0); // Not sure if URL can be accessed locally
     // // Get the voltage going into the PDP, in Volts.
     // // The PDP returns the voltage in increments of 0.05 Volts.
-    SmartDashboard.putNumber("Voltage", voltage);
+    // SmartDashboard.putNumber("Voltage", voltage);
     // // Get the total current of all channels.
     // double totalCurrent = m_pdp.getTotalCurrent();
     // SmartDashboard.putNumber("Total Current", totalCurrent);
@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
     // double totalEnergy = m_pdp.getTotalEnergy();
     // SmartDashboard.putNumber("Total Energy", totalEnergy);
 
-    LaserCan.Measurement measurement = lc.getMeasurement();
+    // LaserCan.Measurement measurement = lc.getMeasurement();
     // if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)
     // {
     //   Logger.LogPeriodic("The target is " + measurement.distance_mm + "mm away!");
@@ -148,11 +148,11 @@ public class Robot extends TimedRobot {
     //   // You can still use distance_mm in here, if you're ok tolerating a clamped value or an
     //   // unreliable measurement.
     // }
-    if (measurement != null && measurement.distance_mm <= 400 && measurement.distance_mm >= 100) {
-      inRange = true;
-    } else {
-      inRange = false;
-    }
+    // if (measurement != null && measurement.distance_mm <= 400 && measurement.distance_mm >= 100) {
+    //   inRange = true;
+    // } else {
+    //   inRange = false;
+    // }
     // Shuffleboard.getTab("LiveWindow")
     //     .add("In Range", inRange)
     //     .withWidget("Boolean Box")
