@@ -68,8 +68,6 @@ public class OperatorControl extends Command {
     // arm position related
     if (ps4controller.getTriangleButtonPressed()) {
       Logger.Log("Triangle button pressed");
-      arm.setArmPositionRotations(L4ArmPosition); // level 4
-      Logger.Log("Arm position: " + arm.getArmPosition());
     }
 
     if (ps4controller.getSquareButtonPressed()) {
