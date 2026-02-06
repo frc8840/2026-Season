@@ -20,18 +20,17 @@ public class DriverCommand extends Command {
   private SlewRateLimiter strafeLimiter = new SlewRateLimiter(10);
   private SlewRateLimiter rotationLimiter = new SlewRateLimiter(10);
 
-  private boolean isReefRotating = false;
-  private boolean isHuggingReef = false;
   private boolean fieldRelative = true;
 
   // Make sure the roller imported is the one from subsystems! Not from settings.
   public DriverCommand(SwerveSubsystem swerve) {
-    addRequirements(swerve);
+    addRequirements(swerve); // have to do this otherwise get error "Default command must require subsystem"
 
     this.swerve = swerve;
     xboxcontroller = new XboxController(Settings.DRIVER_CONTROLLER_PORT);
   }
 
+  // this gets called every X milliseconds (20ms?)
   @Override
   public void execute() {
 
@@ -40,73 +39,34 @@ public class DriverCommand extends Command {
     }
 
     if (xboxcontroller.getYButtonPressed()) {
-      swerve.printCancoderAngles();
+      swerve.printCancoderAngles(); // for debugging
     }
 
     if (xboxcontroller.getBButtonPressed()) {
       swerve.stopModules();
     }
 
-    if (xboxcontroller.getAButtonPressed()) {
-
-      isReefRotating = !isReefRotating;
-      if (!isReefRotating) {
-        swerve.rotateAroundReef(false, 0.0);
-      }
-    }
-    if (xboxcontroller.getBackButtonPressed()) {
-      isHuggingReef = !isHuggingReef;
-    }
-    if (xboxcontroller.getStartButtonPressed()) {
-      fieldRelative = !fieldRelative;
-    }
-    // get values from the Xbox Controller joysticks
+    // get desired robot velocities from the Xbox Controller joysticks
     // apply the deadband so we don't do anything right around the center of the
     // joysticks
-    double translationVal =
+    double translationVelocity =
         translationLimiter.calculate(MathUtil.applyDeadband(-xboxcontroller.getLeftY(), 0.1));
-    double strafeVal =
+    double strafeVelocity =
         strafeLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getLeftX(), 0.1));
-    double rotationVal =
+    double rotationVelocity =
         rotationLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getRightX(), 0.05));
-    double triggerVal = xboxcontroller.getLeftTriggerAxis();
-
-    boolean slowMode = triggerVal > 0.7;
 
     /* Drive */
-    if (!isReefRotating) {
-      Logger.LogPeriodic(
-          "swerve.drive() called with translation=" + translationVal + " and strafe=" + strafeVal);
-      if (slowMode) {
-        swerve.drive(
-            new Translation2d(translationVal, strafeVal)
-                .times(Constants.Swerve.maxSpeedMetersPerSecond * 0.5), // convert to m/s
-            rotationVal * Constants.Swerve.maxAngularVelocityRadiansPerSecond,
-            fieldRelative);
-      } else {
-        swerve.drive(
-            new Translation2d(translationVal, strafeVal)
+    Logger.LogPeriodic(
+          "swerve.drive() called with translation=" + translationVelocity + " and strafe=" + strafeVelocity);
+      
+    swerve.drive(
+            new Translation2d(translationVelocity, strafeVelocity)
                 .times(Constants.Swerve.maxSpeedMetersPerSecond), // convert to m/s
-            rotationVal * Constants.Swerve.maxAngularVelocityRadiansPerSecond,
+            rotationVelocity * Constants.Swerve.maxAngularVelocityRadiansPerSecond,
             fieldRelative);
-      }
-      // ask for ChassisSpeeds so we can print it to logs for debugging
-      ChassisSpeeds chassisSpeeds = swerve.getChassisSpeeds();
-      Logger.LogPeriodic("getChassisSpeeds: " + chassisSpeeds);
-    } else {
-      if (isHuggingReef) {
-        if (slowMode) {
-          swerve.rotateAroundReef(true, translationVal * 0.5);
-        } else {
-          swerve.rotateAroundReef(true, translationVal);
-        }
-      } else {
-        if (slowMode) {
-          swerve.rotateAroundReef(false, strafeVal * 0.5);
-        } else {
-          swerve.rotateAroundReef(false, strafeVal);
-        }
-      }
-    }
+    // ask for ChassisSpeeds so we can print it to logs for debugging
+    ChassisSpeeds chassisSpeeds = swerve.getChassisSpeeds();
+    Logger.LogPeriodic("getChassisSpeeds: " + chassisSpeeds);
   }
 }

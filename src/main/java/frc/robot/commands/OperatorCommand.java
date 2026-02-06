@@ -19,6 +19,7 @@ public class OperatorCommand extends Command {
     ps4controller = new PS4Controller(Settings.OPERATOR_CONTROLLER_PORT);
   }
 
+  // this gets called every X milliseconds (20ms?)
   @Override
   public void execute() {
 
