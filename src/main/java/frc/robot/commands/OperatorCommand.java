@@ -22,11 +22,12 @@ public class OperatorCommand extends Command {
   @Override
   public void execute() {
 
-
-    // arm position related
+    // this is a test: if the triangle button is pressed, run the motor slowly, otherwise stop the motor
     if (ps4controller.getTriangleButtonPressed()) {
       Logger.Log("Triangle button pressed");
       testSubsystem.setSpeed(0.1);
+    } else {
+      testSubsystem.setSpeed(0.0);
     }
 
 

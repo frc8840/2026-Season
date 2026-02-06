@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Logger;
 
-public class KrakenSwerve extends SubsystemBase {
+public class SwerveSubsystem extends SubsystemBase {
   private final AHRS gyro;
   private SwerveDriveOdometry odometer;
   private KrakenSwerveModule[] mSwerveMods;
@@ -29,7 +29,7 @@ public class KrakenSwerve extends SubsystemBase {
 
   private Orchestra orchestra;
 
-  public KrakenSwerve() {
+  public SwerveSubsystem() {
     gyro = new AHRS(NavXComType.kMXP_SPI);
     zeroGyro();
 

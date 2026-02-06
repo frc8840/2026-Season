@@ -5,6 +5,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Logger;
 
 public class TestSubsystem extends SubsystemBase {
 
@@ -17,7 +18,7 @@ public class TestSubsystem extends SubsystemBase {
 
     // set up the motor configs
     testConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    testConfig.CurrentLimits.SupplyCurrentLimit = 80;
+    testConfig.CurrentLimits.SupplyCurrentLimit = 70; // this is the default
     testConfig.CurrentLimits.SupplyCurrentLimitEnable = Constants.Swerve.supplyCurrentLimitEnable;
 
     // now set up the motor
@@ -28,6 +29,10 @@ public class TestSubsystem extends SubsystemBase {
 
   public void setSpeed(double speed) {
     testMotor.set(speed);
+  }
+
+  public void sayHi() {
+    Logger.Log("Hi!");
   }
 
 

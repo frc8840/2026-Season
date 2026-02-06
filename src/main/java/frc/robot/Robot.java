@@ -4,19 +4,7 @@
 
 package frc.robot;
 
-import au.grapplerobotics.ConfigurationFailedException;
-import au.grapplerobotics.LaserCan;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 
@@ -33,12 +21,6 @@ public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
 
   RobotContainer container;
-  // private LaserCan lc;
-  // private PowerDistribution m_pdp;
-  // private ShuffleboardContainer sbContainer;
-  private boolean inRange = false;
-
-  // private PhotonCamera camera;
 
   public static Robot getInstance() {
     return instance;
@@ -53,47 +35,12 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
+  // hello!
   public void robotInit() {
-    Logger.Log("RobotInitRan");
+    Logger.Log("RobotInit called");
     ctreConfigs = new CTREConfigs();
     container = new RobotContainer();
-    // // PWM port 9
-    // // Must be a PWM header, not MXP or DIO
-    // lc = new LaserCan(42);
-    // // sbContainer = Shuffleboard.getTab("Live Window"); //change name to whatever you want
-    // m_pdp = new PowerDistribution(1, ModuleType.kCTRE);
-    // // Optionally initialise the settings of the LaserCAN, if you haven't already done so in
-    // // GrappleHook
-    // try {
-    //   lc.setRangingMode(LaserCan.RangingMode.SHORT);
-    //   lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-    //   lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
-    // } catch (ConfigurationFailedException e) {
-    //   System.out.println("Configuration failed! " + e);
-    // }
-    // // Creates UsbCamera and MjpegServer [1] and connects them
-    // HttpCamera photonCamera =
-    //     new HttpCamera(
-    //         "PhotonVision", "http://10.88.40.11:1181/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-    // // PhotonCamera camera = new PhotonCamera("Arducam_OV2311_USB_CAMERA");
-    // // CameraServer.startAutomaticCapture(); // Change path to whatever the camera is
-    // // MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
-    // // mjpegServer1.setSource(usbCamera);
-    // // Shuffleboard.getTab("Camera Stream")
-    // //     .addCamera("Driver Camera", "test", "mjpg:http://10.88.40.11:5800/?action=stream")
-    // //     .withPosition(2, 0)
-    // //     .withSize(3, 3);
-    // photonCamera.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-    // CameraServer.addCamera(photonCamera);
-
-    // NetworkTableEntry streams =
-    //     NetworkTableInstance.getDefault()
-    //         .getTable("CameraPublisher")
-    //         .getSubTable("PhotonVision")
-    //         .getEntry("streams");
-
-    // streams.setStringArray(new String[] {"mjpeg:http://10.88.40.11:1181/stream.mjpg"});
   }
 
   /**
@@ -107,63 +54,6 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
-    // Logger.Log("robotPeriodic called");
-    // CanBridge.runTCP();
-    // double voltage = m_pdp.getVoltage();
-    // boolean added = false;
-    // if (!added) {
-    //   Shuffleboard.getTab("LiveWindow")
-    //   .add("Voltage", voltage)
-    //   .withWidget("Number Bar")
-    //   .withPosition(0, 0)
-    //   .withSize(1, 1);
-    // }
-    // sbContainer
-    //     .addCamera("Camera", "Camera", "http://10.88..40.11:5800")
-    //     .withWidget("Camera Stream")
-    //     .withSize(4, 2)
-    //     .withPosition(0, 0); // Not sure if URL can be accessed locally
-    // // Get the voltage going into the PDP, in Volts.
-    // // The PDP returns the voltage in increments of 0.05 Volts.
-    // SmartDashboard.putNumber("Voltage", voltage);
-    // // Get the total current of all channels.
-    // double totalCurrent = m_pdp.getTotalCurrent();
-    // SmartDashboard.putNumber("Total Current", totalCurrent);
-    // // Get the total power of all channels.
-    // // Power is the bus voltage multiplied by the current with the units Watts.
-    // double totalPower = m_pdp.getTotalPower();
-    // SmartDashboard.putNumber("Total Power", totalPower);
-    // // Get the total energy of all channels.
-    // // Energy is the power summed over time with units Joules.
-    // double totalEnergy = m_pdp.getTotalEnergy();
-    // SmartDashboard.putNumber("Total Energy", totalEnergy);
-
-    // LaserCan.Measurement measurement = lc.getMeasurement();
-    // if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)
-    // {
-    //   Logger.LogPeriodic("The target is " + measurement.distance_mm + "mm away!");
-    // } else {
-    //   Logger.LogPeriodic(
-    //       "Oh no! The target is out of range, or we can't get a reliable measurement!");
-    //   // You can still use distance_mm in here, if you're ok tolerating a clamped value or an
-    //   // unreliable measurement.
-    // }
-    // if (measurement != null && measurement.distance_mm <= 400 && measurement.distance_mm >= 100) {
-    //   inRange = true;
-    // } else {
-    //   inRange = false;
-    // }
-    // Shuffleboard.getTab("LiveWindow")
-    //     .add("In Range", inRange)
-    //     .withWidget("Boolean Box")
-    //     .withPosition(1, 2)
-    //     .withSize(1, 1);
-    SmartDashboard.putBoolean("Close to Reef", inRange);
-
-    // SmartDashboard.putData(m_pdp);
-    // .add("Camera", camera)
-    // .withWidget("Camera Stream")
-    // .withSize(4,2);
   }
 
   /**
@@ -178,45 +68,25 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Command autonomousCommand = container.getAutonomousCommand();
-
-    // Logger.Log("Autonomous Init Called");
-    // Command autonomousCommand = swerve.followPathCommand("Test Path"); // Evan's alternative test
-    // schedule the autonomous command - adds it to the scheduler
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
-    }
+    Logger.Log("autonomousInit called");
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    // don't put a log here
+  }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    // container.shooter.stop();
-    // container.intake.stop();
+    Logger.Log("teleopInit called");
   }
 
-  // Line 104 to 120 can be commented out, js don't command out teleopPeriodic
-  //   private final SwerveRequest.FieldCentric m_driveRequest = new SwerveRequest.FieldCentric()
-  //    .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10%
-  // deadband
-  //    .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-  //    .withSteerRequestType(SteerRequestType.MotionMagicExpo);
-
-  // private final XboxController m_joystick = new XboxController(0);
-  // public final SwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //  m_drivetrain.setControl(
-    //     m_driveRequest.withVelocityX(-joystick.getLeftY())
-    //        .withVelocityY(-joystick.getLeftX())
-    //        .withRotationalRate(-joystick.getRightX())
-    //  );
   }
 
   /** This function is called once when the robot is disabled. */

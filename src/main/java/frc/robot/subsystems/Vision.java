@@ -20,7 +20,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class Vision extends SubsystemBase {
 
-  KrakenSwerve swerve;
+  SwerveSubsystem swerve;
 
   PhotonCamera photonCamera;
   PhotonPoseEstimator photonPoseEstimator;
@@ -34,7 +34,7 @@ public class Vision extends SubsystemBase {
   double yOffset;
   double angleOffset;
 
-  public Vision(KrakenSwerve swerve) {
+  public Vision(SwerveSubsystem swerve) {
     this.swerve = swerve;
     photonCamera = new PhotonCamera("Arducam_OV2311_USB_Camera"); // ("PhotonVision");
     Logger.Log("PhotonCamera loaded: " + photonCamera);
