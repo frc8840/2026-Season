@@ -4,17 +4,18 @@ import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Logger;
 import frc.robot.Settings;
-import frc.robot.subsystems.Test;
+import frc.robot.subsystems.TestSubsystem;
 
-public class OperatorControl extends Command {
+public class OperatorCommand extends Command {
 
   private PS4Controller ps4controller;
 
-  private Test test;
+  private TestSubsystem testSubsystem;
 
-  public OperatorControl(Test test) {
-    this.test = test;
-    addRequirements(test);
+  public OperatorCommand(TestSubsystem testSubsystem) {
+    this.testSubsystem = testSubsystem;
+    // line below was missing!
+    addRequirements(testSubsystem); // Default commands must require their subsystem
     ps4controller = new PS4Controller(Settings.OPERATOR_CONTROLLER_PORT);
   }
 
@@ -25,7 +26,7 @@ public class OperatorControl extends Command {
     // arm position related
     if (ps4controller.getTriangleButtonPressed()) {
       Logger.Log("Triangle button pressed");
-      test.setSpeed(0.1);
+      testSubsystem.setSpeed(0.1);
     }
 
 

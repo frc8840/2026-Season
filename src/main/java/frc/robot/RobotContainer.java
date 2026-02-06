@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import frc.robot.commands.DriverControl;
-import frc.robot.commands.OperatorControl;
+import frc.robot.commands.DriverCommand;
+import frc.robot.commands.OperatorCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.ArmShooter;
 import frc.robot.subsystems.KrakenSwerve;
-import frc.robot.subsystems.Test;
+import frc.robot.subsystems.TestSubsystem;
 import frc.robot.subsystems.Vision;
 import java.util.List;
 
@@ -35,9 +35,9 @@ public class RobotContainer {
   // the subsystems
   public KrakenSwerve swerve;
   private Arm arm;
-  private Test test;
+  private TestSubsystem test;
   public ArmShooter shooter;
-  public Test testSystem;
+  public TestSubsystem testSystem;
   public Vision vision;
 
   // the old chooser
@@ -46,8 +46,8 @@ public class RobotContainer {
   // private final SendableChooser<Command> autoChooser;
 
   // controllers
-  DriverControl driverControl;
-  OperatorControl operatorControl;
+  DriverCommand driverControl;
+  OperatorCommand operatorControl;
 
   // do we need this?
   TrajectoryConfig trajectoryConfig;
@@ -81,8 +81,8 @@ public class RobotContainer {
     // now make the controllers
     // driverControl = new DriverControl(swerve);
     // swerve.setDefaultCommand(driverControl);
-    test = new Test();
-    operatorControl = new OperatorControl(test);
+    test = new TestSubsystem();
+    operatorControl = new OperatorCommand(test);
     test.setDefaultCommand(operatorControl);
     // arm.setDefaultCommand(operatorControl);
     // shooter.setDefaultCommand(operatorControl);

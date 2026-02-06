@@ -6,12 +6,12 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Test extends SubsystemBase {
+public class TestSubsystem extends SubsystemBase {
 
   private TalonFX testMotor;
   private TalonFXConfiguration testConfig = new TalonFXConfiguration();
 
-  public Test() {
+  public TestSubsystem() {
 
     testMotor = new TalonFX(23);
 

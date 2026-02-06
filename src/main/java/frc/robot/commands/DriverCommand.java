@@ -11,7 +11,7 @@ import frc.robot.Logger;
 import frc.robot.Settings;
 import frc.robot.subsystems.KrakenSwerve;
 
-public class DriverControl extends Command {
+public class DriverCommand extends Command {
 
   private XboxController xboxcontroller;
   private KrakenSwerve swerve;
@@ -25,7 +25,7 @@ public class DriverControl extends Command {
   private boolean fieldRelative = true;
 
   // Make sure the roller imported is the one from subsystems! Not from settings.
-  public DriverControl(KrakenSwerve swerve) {
+  public DriverCommand(KrakenSwerve swerve) {
     addRequirements(swerve);
 
     this.swerve = swerve;
