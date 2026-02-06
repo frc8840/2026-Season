@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
-    Logger.Log("robotPeriodic called");
+    // Logger.Log("robotPeriodic called");
     // CanBridge.runTCP();
     // double voltage = m_pdp.getVoltage();
     // boolean added = false;
