@@ -14,7 +14,7 @@ public class TestSubsystem extends SubsystemBase {
 
   public TestSubsystem() {
 
-    testMotor = new TalonFX(23);
+    testMotor = new TalonFX(35);
 
     // set up the motor configs
     testConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;

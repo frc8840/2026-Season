@@ -24,15 +24,16 @@ public class RobotContainer {
   public RobotContainer() {
     instance = this;
 
+    /*
     // construct and link together operator command
     testSubsystem = new TestSubsystem();
     operatorCommand = new OperatorCommand(testSubsystem);
     testSubsystem.setDefaultCommand(operatorCommand);
-
+    */
+    
     // construct and link together the driver command
     swerveSubsystem = new SwerveSubsystem();
     driverCommand = new DriverCommand(swerveSubsystem);
     swerveSubsystem.setDefaultCommand(driverCommand);
   }
-
 }

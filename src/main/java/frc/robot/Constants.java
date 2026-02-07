@@ -8,7 +8,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.config.KrakenModuleConstants;
-import frc.lib.config.SwerveModuleConstants;
 
 public final class Constants {
 
@@ -26,8 +25,8 @@ public final class Constants {
 
     /* Drivetrain Constants */
     // our robot this year is longer than wide
-    public static final double trackWidth = Units.inchesToMeters(24.0); // width 22.75
-    public static final double wheelBase = Units.inchesToMeters(36.0); // length 24.75
+    public static final double trackWidth = Units.inchesToMeters(27.5); // width
+    public static final double wheelBase = Units.inchesToMeters(27.5); // length
     public static final double wheelDiameter = Units.inchesToMeters(4.0);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
@@ -111,23 +110,13 @@ public final class Constants {
     /* Angle Encoder Invert */
     public static final boolean canCoderInvert = false;
 
-    /* Constants for the SparkMax swerve modules */
-    public static final SwerveModuleConstants FLconstants =
-        new SwerveModuleConstants(12, 11, 52, Rotation2d.fromDegrees(-164.5));
-    public static final SwerveModuleConstants FRconstants =
-        new SwerveModuleConstants(14, 13, 53, Rotation2d.fromDegrees(-32.3));
-    public static final SwerveModuleConstants BLconstants =
-        new SwerveModuleConstants(18, 17, 55, Rotation2d.fromDegrees(-235.0));
-    public static final SwerveModuleConstants BRconstants =
-        new SwerveModuleConstants(16, 15, 54, Rotation2d.fromDegrees(-300.8));
-
     /* Constants for the Kraken swerve modules */
     public static final KrakenModuleConstants FLKrakenConstants =
-        new KrakenModuleConstants(25, 27, 52, Rotation2d.fromRotations(0.567));
+        new KrakenModuleConstants(34, 37, 54, Rotation2d.fromRotations(0.664));
     public static final KrakenModuleConstants FRKrakenConstants =
-        new KrakenModuleConstants(34, 37, 54, Rotation2d.fromRotations(0.414));
+        new KrakenModuleConstants(29, 31, 53, Rotation2d.fromRotations(0.912));
     public static final KrakenModuleConstants BLKrakenConstants =
-        new KrakenModuleConstants(29, 31, 53, Rotation2d.fromRotations(0.412));
+        new KrakenModuleConstants(25, 27, 52, Rotation2d.fromRotations(0.817));
     public static final KrakenModuleConstants BRKrakenConstants =
         new KrakenModuleConstants(35, 36, 55, Rotation2d.fromRotations(0.42));
   }

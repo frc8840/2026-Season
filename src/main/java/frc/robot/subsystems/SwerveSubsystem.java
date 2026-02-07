@@ -215,16 +215,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void zeroGyro() {
     Logger.Log("zeroGyro called with " + gyro.getYaw());
-    // while (gyro.isCalibrating()) {
-    //   try {
-    //     Thread.sleep(100);
-    //     Logger.Log("Calibrating gyro");
-    //   } catch (InterruptedException e) {
-    //     // nothing
-    //   }
-    // }
-    // gyro.zeroYaw();
-    // Logger.Log("zeroGyro completed with " + gyro.getYaw());
+     while (gyro.isCalibrating()) {
+       try {
+         Thread.sleep(100);
+         Logger.Log("Calibrating gyro");
+       } catch (InterruptedException e) {
+         // nothing
+       }
+     }
+     gyro.zeroYaw();
+     Logger.Log("zeroGyro completed with " + gyro.getYaw());
   }
 
   public double getYawValue() {
