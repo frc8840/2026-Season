@@ -37,6 +37,9 @@ public class Robot extends TimedRobot {
   @Override
   // hello!
   public void robotInit() {
+
+    Logger.Log("\n\n\nHello Winston\n\n\n");
+
     Logger.Log("RobotInit called");
     ctreConfigs = new CTREConfigs();
     container = new RobotContainer();
