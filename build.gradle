@@ -22,6 +22,9 @@ deploy {
             team = project.frc.getTeamNumber()
             debug = project.frc.getDebugOrDefault(false)
 
+            //Specific IP Adress to Set when Connected Directly (Comment out when connected wireless)
+            addresses = ['169.254.77.16', 'robotrio-8840-frc.local']
+
             artifacts {
                 // First part is artifact name, 2nd is artifact type
                 // getTargetTypeClass is a shortcut to get the class type using a string
