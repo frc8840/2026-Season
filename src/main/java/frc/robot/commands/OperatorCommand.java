@@ -24,7 +24,7 @@ public class OperatorCommand extends Command {
   public void execute() {
 
     // this is a test: if the triangle button is pressed, run the motor slowly, otherwise stop the motor
-    if (ps4controller.getTriangleButtonPressed()) {
+    if (ps4controller.getTriangleButton()) {
       Logger.Log("Triangle button pressed");
       frank.spin();
     } else {

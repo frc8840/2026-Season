@@ -6,20 +6,21 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Logger;
 
 public class Frankenstein3 extends SubsystemBase {
 
   private double openPosition = 5;
   private double closedPosition = 0;
-  private double spinnerSpeed =7;
+  private double spinnerSpeed = 0.1;
   private TalonFX intakePosition;
   private TalonFX spinner;
   private TalonFXConfiguration frankConfig = new TalonFXConfiguration();
  
-  public void FrankSubsystem() {
+  public Frankenstein3() {
 
-    intakePosition = new TalonFX(38);
-    spinner = new TalonFX(38);
+    intakePosition = new TalonFX(23);
+    spinner = new TalonFX(23);
     // set up the motor configs
     frankConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     frankConfig.CurrentLimits.SupplyCurrentLimit = 70; // this is the default
@@ -33,10 +34,12 @@ public class Frankenstein3 extends SubsystemBase {
   }
 
   public void spin(){
+    Logger.Log("spin yay");
     spinner.set(spinnerSpeed);
   }
 
   public void stop(){
+    Logger.Log("stopping");
     spinner.set(0);
 
   }
