@@ -18,7 +18,7 @@ public class ArmShooter extends SubsystemBase {
 
   public ArmShooter() {
 
-    shooterMotor = new TalonFX(Settings.SHOOTER_MOTOR_ID);
+    shooterMotor = new TalonFX(Settings.SHOOTER_TOP_MOTOR_ID);
     var talonFXConfigs = new TalonFXConfiguration();
 
     talonFXConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
