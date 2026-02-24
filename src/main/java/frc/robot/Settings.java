@@ -25,6 +25,6 @@ public class Settings {
   // SHOOTER SETTINGS
   public static final int SHOOTER_TOP_MOTOR_ID = 20;
   public static final int SHOOTER_BOTTOM_MOTOR_ID = 21;
-  public static final double SHOOTER_TOP_SPEED = 1.0;
-  public static final double SHOOTER_BOTTOM_SPEED = -1.0;
+  public static final double SHOOTER_TOP_SPEED = 0.5;
+  public static final double SHOOTER_BOTTOM_SPEED = -0.5;
 }
