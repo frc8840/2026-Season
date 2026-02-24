@@ -16,7 +16,7 @@ public class Frankenstein3 extends SubsystemBase {
   private TalonFX spinner;
   private TalonFXConfiguration frankConfig = new TalonFXConfiguration();
  
-  public void FrankSubsystem() {
+  public Frankenstein3() {
 
     intakePosition = new TalonFX(38);
     spinner = new TalonFX(38);

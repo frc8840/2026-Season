@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.DriverCommand;
 import frc.robot.commands.OperatorCommand;
+import frc.robot.subsystems.Frankenstein3;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -11,7 +12,7 @@ public class RobotContainer {
 
   // the subsystems
   SwerveSubsystem swerveSubsystem;
-  IntakeSubsystem intakeSubsystem;
+  Frankenstein3 intakeSubsystem;
 
   // the commands
   DriverCommand driverCommand;
@@ -25,7 +26,7 @@ public class RobotContainer {
     instance = this;
 
     // construct and link together operator command
-    intakeSubsystem = new IntakeSubsystem();
+    intakeSubsystem = new Frankenstein3();
     operatorCommand = new OperatorCommand(intakeSubsystem);
     intakeSubsystem.setDefaultCommand(operatorCommand);
     
