@@ -10,17 +10,18 @@ import frc.robot.Settings;
 
 public class IntakeSubsystem extends SubsystemBase {
 
+  // 20:1 gear ratio
   private double openPosition = 5;
   private double closedPosition = 0;
-  private double spinnerSpeed = 0.3;
+  private double spinnerSpeed = -0.1;
   private TalonFX intakePosition;
   private TalonFX spinner;
   private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
- 
+
   public IntakeSubsystem() {
 
-    intakePosition = new TalonFX(Settings.INTAKE_SLOW_MOTOR_ID);
-    spinner = new TalonFX(Settings.INTAKE_FAST_MOTOR_ID);
+    intakePosition = new TalonFX(Settings.INTAKE_POS_MOTOR_ID);
+    spinner = new TalonFX(Settings.INTAKE_SPIN_MOTOR_ID);
 
     // set up the motor configs
     motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -34,17 +35,18 @@ public class IntakeSubsystem extends SubsystemBase {
     // now the motor is ready to be controlled
   }
 
-  public void spin(){
+  public void spin() {
     spinner.set(spinnerSpeed);
   }
 
-  public void stop(){
+  public void stop() {
     spinner.set(0);
   }
 
   public void setPositionOpen() {
     intakePosition.setPosition(openPosition);
   }
+
   public void setPositionClosed() {
     intakePosition.setPosition(closedPosition);
   }

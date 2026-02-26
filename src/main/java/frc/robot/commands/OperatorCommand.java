@@ -16,6 +16,7 @@ public class OperatorCommand extends Command {
 
   private boolean isIntakeOpen = false;
   private boolean isIntakeSpinnerOn = false;
+  private boolean isShooterOn = false;
 
   public OperatorCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     this.intake = intake;
@@ -29,34 +30,37 @@ public class OperatorCommand extends Command {
   // this gets called every X milliseconds (20ms?)
   @Override
   public void execute() {
-    // intake
-    if (ps4controller.getTriangleButton()) {
+    // intake pos
+    if (ps4controller.getTriangleButtonPressed()) {
       Logger.Log("Triangle button pressed");
       if (!isIntakeOpen) {
         intake.setPositionOpen();
       } else {
         intake.setPositionClosed();
       }
-    isIntakeOpen = !isIntakeOpen;
-  }
-  // intake spinner
-  if (ps4controller.getSquareButton()) {
+      isIntakeOpen = !isIntakeOpen;
+    }
+
+    // intake spinner
+    if (ps4controller.getSquareButtonPressed()) {
       Logger.Log("Square button pressed");
       if (!isIntakeSpinnerOn) {
         intake.spin();
       } else {
         intake.stop();
       }
-    isIntakeSpinnerOn = !isIntakeSpinnerOn;
-  }
-
-    // shooter
-    if (ps4controller.getCircleButton()) {
-      Logger.Log("Circle button pressed");
-      shooter.run();
-    } else {
-      shooter.stop();
+      isIntakeSpinnerOn = !isIntakeSpinnerOn;
     }
 
+    // shooter
+    if (ps4controller.getCircleButtonPressed()) {
+      Logger.Log("Circle button pressed");
+      if (!isShooterOn) {
+        shooter.run();
+      } else {
+        shooter.stop();
+      }
+      isShooterOn = !isShooterOn;
+    }
   }
 }

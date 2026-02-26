@@ -32,7 +32,7 @@ public class RobotContainer {
     operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
     intakeSubsystem.setDefaultCommand(operatorCommand);
     shooterSubsystem.setDefaultCommand(operatorCommand);
-    
+
     // construct and link together the driver command
     // swerveSubsystem = new SwerveSubsystem();
     // driverCommand = new DriverCommand(swerveSubsystem);
