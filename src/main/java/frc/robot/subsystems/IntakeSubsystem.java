@@ -6,28 +6,30 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Settings;
 
-public class Frankenstein3 extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
 
   private double openPosition = 5;
   private double closedPosition = 0;
-  private double spinnerSpeed =7;
+  private double spinnerSpeed = 0.3;
   private TalonFX intakePosition;
   private TalonFX spinner;
-  private TalonFXConfiguration frankConfig = new TalonFXConfiguration();
+  private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
  
-  public Frankenstein3() {
+  public IntakeSubsystem() {
 
-    intakePosition = new TalonFX(38);
-    spinner = new TalonFX(38);
+    intakePosition = new TalonFX(Settings.INTAKE_SLOW_MOTOR_ID);
+    spinner = new TalonFX(Settings.INTAKE_FAST_MOTOR_ID);
+
     // set up the motor configs
-    frankConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    frankConfig.CurrentLimits.SupplyCurrentLimit = 70; // this is the default
-    frankConfig.CurrentLimits.SupplyCurrentLimitEnable = Constants.Swerve.supplyCurrentLimitEnable;
+    motorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    motorConfig.CurrentLimits.SupplyCurrentLimit = 70; // this is the default
+    motorConfig.CurrentLimits.SupplyCurrentLimitEnable = Constants.Swerve.supplyCurrentLimitEnable;
 
     // now set up the motor
-    intakePosition.getConfigurator().apply(frankConfig);
-    spinner.getConfigurator().apply(frankConfig);
+    intakePosition.getConfigurator().apply(motorConfig);
+    spinner.getConfigurator().apply(motorConfig);
 
     // now the motor is ready to be controlled
   }
@@ -38,7 +40,6 @@ public class Frankenstein3 extends SubsystemBase {
 
   public void stop(){
     spinner.set(0);
-
   }
 
   public void setPositionOpen() {
