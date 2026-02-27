@@ -65,5 +65,15 @@ public class OperatorCommand extends Command {
       isShooterOn = !isShooterOn;
     }
 
+    // Sean's Shooter
+    if (ps4controller.getCircleButtonPressed()) {
+      if (!isShooterOn) {
+        seanShooter.shoot();
+      } else {
+        seanShooter.stop();
+      }
+      isShooterOn = !isShooterOn;
+    }
+
   }
 }
