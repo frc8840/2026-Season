@@ -14,7 +14,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
   private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
 
-
   public ShooterSubsystem() {
 
     // Assumption of use of a NEO brushless motor
