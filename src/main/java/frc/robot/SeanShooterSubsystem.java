@@ -38,7 +38,7 @@ public class SeanShooterSubsystem {
 
     }
 
-    public void noShoot() {
+    public void stop() {
 
         motor.set(0);
 
