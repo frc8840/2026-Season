@@ -18,8 +18,8 @@ public class Settings {
   public static final PIDStruct ARM_PID = new PIDStruct(10.0, 0.0, 0.1);
 
   // INTAKE SETTINGS
-  public static final int INTAKE_POS_MOTOR_ID = 22;
-  public static final int INTAKE_SPIN_MOTOR_ID = 22;
+  public static final int INTAKE_POS_MOTOR_ID = 32;
+  public static final int INTAKE_SPIN_MOTOR_ID = 32;
   public static final double PICKUP_OUTTAKE_SPEED = -0.2;
   public static final double PICKUP_INTAKE_SPEED = 0.25;
 
