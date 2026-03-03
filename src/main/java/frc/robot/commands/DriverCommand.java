@@ -34,9 +34,9 @@ public class DriverCommand extends Command {
   @Override
   public void execute() {
 
-    if (xboxcontroller.getXButtonPressed()) {
-      swerve.zeroGyro();
-    }
+    // if (xboxcontroller.getXButtonPressed()) {
+    //   swerve.zeroGyro();
+    // }
 
     if (xboxcontroller.getYButtonPressed()) {
       swerve.printCancoderAngles(); // for debugging

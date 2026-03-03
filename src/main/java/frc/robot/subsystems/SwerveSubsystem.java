@@ -75,6 +75,7 @@ public class SwerveSubsystem extends SubsystemBase {
       e.printStackTrace();
     }
 
+    // for autonomous driving
     // Configure AutoBuilder last
     AutoBuilder.configure(
         this::getPose, // Robot pose supplier
@@ -115,7 +116,7 @@ public class SwerveSubsystem extends SubsystemBase {
       Translation2d translationMetersPerSecond,
       double rotationRadiansPerSecond,
       boolean fieldRelative) {
-    // first, we compute our desired chassis speeds
+    // first, we put our desired behavior into a ChassisSpeeds object (wrapper)
     ChassisSpeeds chassisSpeeds = fieldRelative
         ? ChassisSpeeds.fromFieldRelativeSpeeds(
             translationMetersPerSecond.getX(),
@@ -126,11 +127,13 @@ public class SwerveSubsystem extends SubsystemBase {
             translationMetersPerSecond.getX(),
             translationMetersPerSecond.getY(),
             rotationRadiansPerSecond);
+    // second, we will "drive" or set the SwerveModules values based on these
     driveFromSpeeds(chassisSpeeds);
   }
 
   // used by DriverControl and AutoBuilder
   public void driveFromSpeeds(ChassisSpeeds speeds) {
+    // for debugging we log
     Logger.LogPeriodic(
         "driveFromSpeeds() called with "
             + speeds.vxMetersPerSecond
@@ -138,6 +141,8 @@ public class SwerveSubsystem extends SubsystemBase {
             + speeds.vyMetersPerSecond
             + " and "
             + speeds.omegaRadiansPerSecond);
+    // magic happens now: we translate the desired chassis speeds into state (commands)
+    // for the individual modules
     SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(speeds);
     // do we need the below?
     // SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates,

@@ -15,14 +15,19 @@ import frc.robot.Logger;
 import frc.robot.Robot;
 
 public class KrakenSwerveModule {
-  public String moduleNumber;
-  private Rotation2d angleOffset;
 
+  // primary devices?
   public TalonFX angleMotor;
   public TalonFX driveMotor;
   private CANcoder angleEncoder;
+
+  // configs for the motos
   private TalonFXConfiguration angleConfig;
   private TalonFXConfiguration driveConfig;
+
+  // other stuff
+  public String moduleNumber;
+  private Rotation2d angleOffset;
 
   private final PositionVoltage anglePosition = new PositionVoltage(0).withSlot(0);
 
