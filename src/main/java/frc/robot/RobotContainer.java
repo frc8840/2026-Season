@@ -27,10 +27,11 @@ public class RobotContainer {
     instance = this;
 
     // construct and link together operator command
-    intakeSubsystem = new IntakeSubsystem();
+    // intakeSubsystem = new IntakeSubsystem();
+
     shooterSubsystem = new ShooterSubsystem();
     operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
-    intakeSubsystem.setDefaultCommand(operatorCommand);
+    // intakeSubsystem.setDefaultCommand(operatorCommand);
     shooterSubsystem.setDefaultCommand(operatorCommand);
 
     // construct and link together the driver command

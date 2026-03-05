@@ -24,8 +24,12 @@ public class OperatorCommand extends Command {
     this.intake = intake;
     this.shooter = shooter;
     // line below was missing!
-    addRequirements(intake); // Default commands must require their subsystem
-    addRequirements(shooter);
+    if (intake != null) {
+      addRequirements(intake);
+    } // Default commands must require their subsystem
+    if (intake != null) {
+      addRequirements(shooter);
+    }
     ps4controller = new PS4Controller(Settings.OPERATOR_CONTROLLER_PORT);
   }
 

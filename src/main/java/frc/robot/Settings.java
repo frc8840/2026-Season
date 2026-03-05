@@ -19,15 +19,15 @@ public class Settings {
 
   // INTAKE SETTINGS
   public static final int INTAKE_POS_MOTOR_ID = 32;
-  public static final int INTAKE_SPIN_MOTOR_ID = 32;
+  public static final int INTAKE_SPIN_MOTOR_ID = 30;
   public static final double PICKUP_OUTTAKE_SPEED = -0.2;
   public static final double PICKUP_INTAKE_SPEED = 0.25;
 
   // SHOOTER SETTINGS
-  public static final int SHOOTER_TOP_MOTOR_ID = 20;
-  public static final int SHOOTER_BOTTOM_MOTOR_ID = 21;
-  public static final double SHOOTER_TOP_SPEED = 0.5;
-  public static final double SHOOTER_BOTTOM_SPEED = -0.5;
+  public static final int SHOOTER_TOP_MOTOR_ID = 21;
+  public static final int SHOOTER_BOTTOM_MOTOR_ID = 20;
+  public static final double SHOOTER_TOP_SPEED = 1;
+  public static final double SHOOTER_BOTTOM_SPEED = -(SHOOTER_TOP_SPEED);
 
   // SEAN SHOOTER SETTINGS
   public static final int SEAN_SHOOTER_MOTOR_ID = 67;
