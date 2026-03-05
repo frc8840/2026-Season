@@ -28,6 +28,10 @@ public class Robot extends TimedRobot {
   private static Robot instance;
   public static CTREConfigs ctreConfigs;
 
+  private NetworkTable limelightTable;
+  private NetworkTableEntry tvEntry;
+  private NetworkTableEntry tidEntry;
+
   RobotContainer container;
 
   public static Robot getInstance() {
@@ -51,10 +55,14 @@ public class Robot extends TimedRobot {
     container = new RobotContainer();
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("limelight");
+    limelightTable = inst.getTable("limelight");
 
-    NetworkTableEntry tv = table.getEntry("tv");
-    tv.getDouble(0);
+    tvEntry = limelightTable.getEntry("tv"); // target value
+    tvEntry.getBoolean(false);
+    tidEntry = limelightTable.getEntry("tid"); // target apriltag id
+    tidEntry.getInteger(0);
+
+    LimelightHelpers.setPipelineIndex("", 0);
 
   }
 
@@ -71,6 +79,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
+
+    // tvEntry.getBoolean(LimelightHelpers.getTV(""));
 
     // double tx = LimelightHelpers.getTX(""); // Horizontal offset from crosshair
     // to target in degrees
