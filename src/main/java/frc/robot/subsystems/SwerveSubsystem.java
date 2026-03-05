@@ -31,7 +31,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public SwerveSubsystem() {
     gyro = new AHRS(NavXComType.kMXP_SPI);
-    zeroGyro();
+    new Thread(() -> {
+      try {
+        Thread.sleep(1000);
+        zeroGyro();
+      } catch (Exception e) {
+      }
+
+    }).start();
 
     SwerveModulePosition[] startPositions = new SwerveModulePosition[4];
     for (int i = 0; i < 4; i++) {
@@ -213,22 +220,12 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void zeroGyro() {
     Logger.Log("zeroGyro called with " + gyro.getYaw());
-    for (int i = 0; i < 2000 && gyro.isCalibrating(); i += 100) {
-      try {
-        Thread.sleep(100);
-        Logger.Log("Calibrating gyro");
-      } catch (InterruptedException e) {
-        // nothing
-      }
-    }
     if (!gyro.isCalibrating()) {
       gyro.zeroYaw();
+      Logger.Log("ZEROed gyro!!!: got " + gyro.getYaw());
+    } else {
+      Logger.Log("NOT zeroing gyro");
     }
-    Logger.Log("zeroGyro completed with " + gyro.getYaw());
-  }
-
-  public double getYawValue() {
-    return gyro.getYaw(); // always returns in degrees between -180 and 180
   }
 
   // FROM THEIR DOCUMENTATION, NEED TO CHECK IF WE ARE HANDLING THIS THE RIGHT
@@ -236,8 +233,8 @@ public class SwerveSubsystem extends SubsystemBase {
   // current yaw value (in degrees, from -180 to 180)
   public Rotation2d getYaw() {
     return Constants.Swerve.invertGyro
-        ? Rotation2d.fromDegrees(360 - getYawValue())
-        : Rotation2d.fromDegrees(getYawValue());
+        ? Rotation2d.fromDegrees(360 - gyro.getYaw())
+        : Rotation2d.fromDegrees(gyro.getYaw());
   }
 
   @Override
@@ -268,10 +265,10 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     // tell dashboard where the robot thinks it is
     // Shuffleboard.getTab("LiveWindow")
-    // .add("Robot Heading", getYawValue())
+    // .add("Robot Heading", gyro.getYaw())
     // .withPosition(6, 2)
     // .withSize(1, 1);
-    SmartDashboard.putNumber("Robot heading:", getYawValue());
+    SmartDashboard.putNumber("Robot heading:", gyro.getYaw());
     // Shuffleboard.getTab("LiveWindow")
     // .add("Robot Location", getPose().getTranslation().toString())
     // .withPosition(4, 2)
