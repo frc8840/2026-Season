@@ -7,6 +7,7 @@ import frc.robot.SeanShooterSubsystem;
 import frc.robot.Settings;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
 
 public class OperatorCommand extends Command {
 
@@ -15,6 +16,7 @@ public class OperatorCommand extends Command {
   private IntakeSubsystem intake;
   private ShooterSubsystem shooter;
   private SeanShooterSubsystem seanShooter;
+  private IndexerSubsystem indexer;
 
   private boolean isIntakeOpen = false;
   private boolean isIntakeSpinnerOn = false;
@@ -63,8 +65,10 @@ public class OperatorCommand extends Command {
       Logger.Log("Circle button pressed");
       if (!isShooterOn) {
         shooter.run();
+        indexer.indexify();
       } else {
         shooter.stop();
+        indexer.die();
       }
       isShooterOn = !isShooterOn;
     }

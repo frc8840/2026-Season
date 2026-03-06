@@ -32,4 +32,10 @@ public class Settings {
   // SEAN SHOOTER SETTINGS
   public static final int SEAN_SHOOTER_MOTOR_ID = 67;
   public static final double SEAN_SHOOTER_TOP_SPEED = 0.67;
+
+  // INDEXER SHOOTER SETTINGS
+  public static final int INDEXER_TOP_MOTOR_ID = 66;
+  public static final int INDEXER_BOTTOM_MOTOR_ID = 77;
+  public static final double INDEXER_TOP_SPEED = 0.67;
+  public static final double INDEXER_BOTTOM_SPEED = 0.76;
 }
