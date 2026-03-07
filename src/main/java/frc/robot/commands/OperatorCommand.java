@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Logger;
-import frc.robot.SeanShooterSubsystem;
 import frc.robot.Settings;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -15,7 +14,6 @@ public class OperatorCommand extends Command {
 
   private IntakeSubsystem intake;
   private ShooterSubsystem shooter;
-  private SeanShooterSubsystem seanShooter;
   private IndexerSubsystem indexer;
 
   private boolean isIntakeOpen = false;
@@ -23,13 +21,15 @@ public class OperatorCommand extends Command {
   private boolean isShooterOn = false;
 
   public OperatorCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
+    Logger.Log("operator command constructed");
+
     this.intake = intake;
     this.shooter = shooter;
     // line below was missing!
     if (intake != null) {
       addRequirements(intake);
     } // Default commands must require their subsystem
-    if (intake != null) {
+    if (shooter != null) {
       addRequirements(shooter);
     }
     ps4controller = new PS4Controller(Settings.OPERATOR_CONTROLLER_PORT);
@@ -39,15 +39,15 @@ public class OperatorCommand extends Command {
   @Override
   public void execute() {
     // intake pos
-    if (ps4controller.getTriangleButtonPressed()) {
-      Logger.Log("Triangle button pressed");
-      if (!isIntakeOpen) {
-        intake.setPositionOpen();
-      } else {
-        intake.setPositionClosed();
-      }
-      isIntakeOpen = !isIntakeOpen;
-    }
+    // if (ps4controller.getTriangleButtonPressed()) {
+    // Logger.Log("Triangle button pressed");
+    // if (!isIntakeOpen) {
+    // intake.setPositionOpen();
+    // } else {
+    // intake.setPositionClosed();
+    // }
+    // isIntakeOpen = !isIntakeOpen;
+    // }
 
     // intake spinner
     if (ps4controller.getSquareButtonPressed()) {
@@ -65,23 +65,23 @@ public class OperatorCommand extends Command {
       Logger.Log("Circle button pressed");
       if (!isShooterOn) {
         shooter.run();
-        indexer.indexify();
+        // indexer.indexify();
       } else {
         shooter.stop();
-        indexer.die();
+        // indexer.die();
       }
       isShooterOn = !isShooterOn;
     }
 
-    // Sean's Shooter
-    if (ps4controller.getCircleButtonPressed()) {
-      if (!isShooterOn) {
-        seanShooter.shoot();
-      } else {
-        seanShooter.stop();
-      }
-      isShooterOn = !isShooterOn;
-    }
+    // // Sean's Shooter
+    // if (ps4controller.getCircleButtonPressed()) {
+    // if (!isShooterOn) {
+    // seanShooter.shoot();
+    // } else {
+    // seanShooter.stop();
+    // }
+    // isShooterOn = !isShooterOn;
+    // }
 
   }
 }

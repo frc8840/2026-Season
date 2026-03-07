@@ -27,16 +27,16 @@ public class RobotContainer {
     instance = this;
 
     // construct and link together operator command
-    // intakeSubsystem = new IntakeSubsystem();
-
+    intakeSubsystem = new IntakeSubsystem();
     // shooterSubsystem = new ShooterSubsystem();
-    // operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
-    // // intakeSubsystem.setDefaultCommand(operatorCommand);
+
+    operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
+    intakeSubsystem.setDefaultCommand(operatorCommand);
     // shooterSubsystem.setDefaultCommand(operatorCommand);
 
     // construct and link together the driver command
-    // swerveSubsystem = new SwerveSubsystem();
-    // driverCommand = new DriverCommand(swerveSubsystem);
-    // swerveSubsystem.setDefaultCommand(driverCommand);
+    swerveSubsystem = new SwerveSubsystem();
+    driverCommand = new DriverCommand(swerveSubsystem);
+    swerveSubsystem.setDefaultCommand(driverCommand);
   }
 }
