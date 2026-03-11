@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 import frc.robot.LimelightHelpers.LimelightResults;
+import edu.wpi.first.cameraserver.CameraServer;
 
 // import au.grapplerobotics.CanBridge;
 
@@ -56,14 +57,19 @@ public class Robot extends TimedRobot {
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     limelightTable = inst.getTable("limelight");
+    // Logger.Log("Got limelightTable: " + limelightTable.toString());
 
-    tvEntry = limelightTable.getEntry("tv"); // target value
-    tvEntry.getBoolean(false);
-    tidEntry = limelightTable.getEntry("tid"); // target apriltag id
-    tidEntry.getInteger(0);
+    limelightTable.getEntry("stream").setNumber(0);
+    // CameraServer.startAutomaticCapture("", "http://172.28.0.1:5800");
+    // url taken directly from the nt data values but it dpesnt load??? need to fix
+
+    // Logger.Log("Got heartbeat: " +
+    // LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
+
+    // tvEntry = limelightTable.getEntry("tv"); // target value
+    // tidEntry = limelightTable.getEntry("tid"); // target apriltag id
 
     LimelightHelpers.setPipelineIndex("", 0);
-
   }
 
   /**
@@ -80,15 +86,36 @@ public class Robot extends TimedRobot {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
 
-    // tvEntry.getBoolean(LimelightHelpers.getTV(""));
+    // if (Logger.loopCounter % 100 == 0) {
+    // var connections = NetworkTableInstance.getDefault().getConnections();
+    // Logger.Log("NT Connections: " + connections.length);
+    // for (int i = 0; i < connections.length; i++) {
+    // Logger.Log("NT Conn: " + connections[i].remote_id + " " +
+    // connections[i].remote_ip);
+    // }
+    // }
+
+    boolean hasTarget = LimelightHelpers.getTV("");
+    Logger.LogPeriodic("Got heartbeat: " + LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
+    Logger.LogPeriodic("has target: " + hasTarget);
+
+    double tagID = LimelightHelpers.getFiducialID("");
+    Logger.LogPeriodic("tagID: " + tagID);
+
+    // tvEntry.getBoolean(false);
+    // tidEntry.getDouble(0);
+
+    // boolean hasTarget = LimelightHelpers.getTV(""); // Do you have a valid
+    // target?
+    // Logger.LogPeriodic("has target:" + hasTarget);
 
     // double tx = LimelightHelpers.getTX(""); // Horizontal offset from crosshair
     // to target in degrees
     // Logger.LogPeriodic("x pos:" + tx);
 
-    // boolean hasTarget = LimelightHelpers.getTV(""); // Do you have a valid
-    // target?
-    // Logger.LogPeriodic("has target:" + hasTarget);
+    // Logger.LogPeriodic(
+    // "AAAAAAAAA" +
+    // NetworkTableInstance.getDefault().getTable("limelight").getKeys());
 
   }
 
