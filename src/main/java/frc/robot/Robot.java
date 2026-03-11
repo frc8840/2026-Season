@@ -96,11 +96,12 @@ public class Robot extends TimedRobot {
     // }
 
     boolean hasTarget = LimelightHelpers.getTV("");
-    Logger.LogPeriodic("Got heartbeat: " + LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
-    Logger.LogPeriodic("has target: " + hasTarget);
+    // Logger.LogPeriodic("Got heartbeat: " +
+    // LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
+    // Logger.LogPeriodic("has target: " + hasTarget);
 
     double tagID = LimelightHelpers.getFiducialID("");
-    Logger.LogPeriodic("tagID: " + tagID);
+    // Logger.LogPeriodic("tagID: " + tagID);
 
     // tvEntry.getBoolean(false);
     // tidEntry.getDouble(0);

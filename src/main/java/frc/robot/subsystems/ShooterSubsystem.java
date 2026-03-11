@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import frc.robot.Logger;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -11,11 +13,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
   private TalonFX topMotor;
   private TalonFX bottomMotor;
-
   private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
 
   public ShooterSubsystem() {
-
+    Logger.Log("shooter motors initialized");
     // Assumption of use of a NEO brushless motor
     topMotor = new TalonFX(Settings.SHOOTER_TOP_MOTOR_ID);
     bottomMotor = new TalonFX(Settings.SHOOTER_BOTTOM_MOTOR_ID);
@@ -33,9 +34,21 @@ public class ShooterSubsystem extends SubsystemBase {
 
   }
 
-  public void run() {
+  public void run_max() {
     topMotor.set(Settings.SHOOTER_TOP_SPEED);
     bottomMotor.set(Settings.SHOOTER_BOTTOM_SPEED);
+    // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
+  }
+
+  public void run_half() {
+    topMotor.set(0.5);
+    bottomMotor.set(0.5);
+    // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
+  }
+
+  public void run_quarter() {
+    topMotor.set(0.25);
+    bottomMotor.set(0.25);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 

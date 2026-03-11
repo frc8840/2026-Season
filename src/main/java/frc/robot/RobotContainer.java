@@ -11,13 +11,15 @@ public class RobotContainer {
   private static RobotContainer instance;
 
   // the subsystems
-  SwerveSubsystem swerveSubsystem;
+  // SwerveSubsystem swerveSubsystem;
   IntakeSubsystem intakeSubsystem;
   ShooterSubsystem shooterSubsystem;
 
   // the commands
   DriverCommand driverCommand;
   OperatorCommand operatorCommand;
+
+  // ^taking some of these out for shooter testing
 
   public static RobotContainer getInstance() {
     return instance;
@@ -27,12 +29,12 @@ public class RobotContainer {
     instance = this;
 
     // construct and link together operator command
-    // intakeSubsystem = new IntakeSubsystem();
-    // shooterSubsystem = new ShooterSubsystem();
+    intakeSubsystem = new IntakeSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
+    intakeSubsystem.setDefaultCommand(operatorCommand);
 
-    // operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
-    // intakeSubsystem.setDefaultCommand(operatorCommand);
-    // // shooterSubsystem.setDefaultCommand(operatorCommand);
+    operatorCommand = new OperatorCommand(intakeSubsystem, shooterSubsystem);
+    shooterSubsystem.setDefaultCommand(operatorCommand);
 
     // // construct and link together the driver command
     // swerveSubsystem = new SwerveSubsystem();

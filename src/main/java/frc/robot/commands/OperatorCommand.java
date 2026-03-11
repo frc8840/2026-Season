@@ -48,6 +48,7 @@ public class OperatorCommand extends Command {
     // }
     // isIntakeOpen = !isIntakeOpen;
     // }
+    Logger.Log("POV:" + ps4controller.getPOV());
 
     // intake spinner
     if (ps4controller.getSquareButtonPressed()) {
@@ -64,24 +65,44 @@ public class OperatorCommand extends Command {
     if (ps4controller.getCircleButtonPressed()) {
       Logger.Log("Circle button pressed");
       if (!isShooterOn) {
-        shooter.run();
+        shooter.run_max();
         // indexer.indexify();
       } else {
         shooter.stop();
         // indexer.die();
       }
       isShooterOn = !isShooterOn;
+
+      // // Sean's Shooter
+      // if (ps4controller.getCircleButtonPressed()) {
+      // if (!isShooterOn) {
+      // seanShooter.shoot();
+      // } else {
+      // seanShooter.stop();
+      // }
+      // isShooterOn = !isShooterOn;
+      // }
+
     }
 
-    // // Sean's Shooter
-    // if (ps4controller.getCircleButtonPressed()) {
-    // if (!isShooterOn) {
-    // seanShooter.shoot();
-    // } else {
-    // seanShooter.stop();
-    // }
-    // isShooterOn = !isShooterOn;
-    // }
+    if (ps4controller.getR1ButtonPressed()) {
+      if (isShooterOn) {
+        shooter.run_half();
+      } else {
+        shooter.stop();
+        // indexer.die();
+      }
+      isShooterOn = !isShooterOn;
+    }
+    if (ps4controller.getR2ButtonPressed()) {
+      if (isShooterOn) {
+        shooter.run_quarter();
+      } else {
+        shooter.stop();
+        // indexer.die();
+      }
+      isShooterOn = !isShooterOn;
+    }
 
   }
 }
