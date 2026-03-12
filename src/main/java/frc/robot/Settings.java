@@ -26,8 +26,12 @@ public class Settings {
   // SHOOTER SETTINGS
   public static final int SHOOTER_TOP_MOTOR_ID = 21;
   public static final int SHOOTER_BOTTOM_MOTOR_ID = 20;
-  public static final double SHOOTER_TOP_SPEED = 1;
-  public static final double SHOOTER_BOTTOM_SPEED = -(SHOOTER_TOP_SPEED);
+  public static final double SHOOTER_TOP_SPEED_MAX = 1;
+  public static final double SHOOTER_BOTTOM_SPEED_MAX = -(SHOOTER_TOP_SPEED_MAX);
+  public static final double SHOOTER_TOP_SPEED_R1 = 0.75;
+  public static final double SHOOTER_BOTTOM_SPEED_R1 = -(SHOOTER_TOP_SPEED_R1);
+  public static final double SHOOTER_TOP_SPEED_R2 = 0.5;
+  public static final double SHOOTER_BOTTOM_SPEED_R2 = -(SHOOTER_TOP_SPEED_R2);
 
   // SEAN SHOOTER SETTINGS
   public static final int SEAN_SHOOTER_MOTOR_ID = 67;

@@ -5,6 +5,8 @@ import frc.robot.Logger;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Settings;
@@ -35,26 +37,30 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void run_max() {
-    topMotor.set(Settings.SHOOTER_TOP_SPEED);
-    bottomMotor.set(Settings.SHOOTER_BOTTOM_SPEED);
+    topMotor.set(1);
+    bottomMotor.set(-1);
+    // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
+  }
+
+  public void run_75() {
+    topMotor.set(0.75);
+    bottomMotor.set(-0.75);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
   public void run_half() {
     topMotor.set(0.5);
-    bottomMotor.set(0.5);
-    // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
-  }
-
-  public void run_quarter() {
-    topMotor.set(0.25);
-    bottomMotor.set(0.25);
+    bottomMotor.set(-0.5);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
   public void stop() {
     topMotor.set(0);
     bottomMotor.set(0);
+  }
+
+  public double getCurrentVelocity() {
+    return topMotor.get();
   }
 
 }

@@ -18,7 +18,7 @@ public class OperatorCommand extends Command {
 
   private boolean isIntakeOpen = false;
   private boolean isIntakeSpinnerOn = false;
-  private boolean isShooterOn = false;
+  private double shooterSpeed = 0.0;
 
   public OperatorCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     Logger.Log("operator command constructed");
@@ -48,7 +48,7 @@ public class OperatorCommand extends Command {
     // }
     // isIntakeOpen = !isIntakeOpen;
     // }
-    Logger.Log("POV:" + ps4controller.getPOV());
+    // Logger.Log("POV:" + ps4controller.getPOV());
 
     // intake spinner
     if (ps4controller.getSquareButtonPressed()) {
@@ -64,45 +64,39 @@ public class OperatorCommand extends Command {
     // shooter
     if (ps4controller.getCircleButtonPressed()) {
       Logger.Log("Circle button pressed");
-      if (!isShooterOn) {
+      if (shooterSpeed != 1) {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.run_max();
-        // indexer.indexify();
+        shooterSpeed = 1;
       } else {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
-        // indexer.die();
+        shooterSpeed = 0;
       }
-      isShooterOn = !isShooterOn;
-
-      // // Sean's Shooter
-      // if (ps4controller.getCircleButtonPressed()) {
-      // if (!isShooterOn) {
-      // seanShooter.shoot();
-      // } else {
-      // seanShooter.stop();
-      // }
-      // isShooterOn = !isShooterOn;
-      // }
-
     }
-
     if (ps4controller.getR1ButtonPressed()) {
-      if (isShooterOn) {
-        shooter.run_half();
+      Logger.Log("R1 button pressed");
+      if (shooterSpeed != 0.75) {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
+        shooter.run_75();
+        shooterSpeed = 0.75;
       } else {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
-        // indexer.die();
+        shooterSpeed = 0;
       }
-      isShooterOn = !isShooterOn;
     }
     if (ps4controller.getR2ButtonPressed()) {
-      if (isShooterOn) {
-        shooter.run_quarter();
+      Logger.Log("R2 button pressed");
+      if (shooterSpeed != 0.5) {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
+        shooter.run_half();
+        shooterSpeed = 0.5;
       } else {
+        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
-        // indexer.die();
+        shooterSpeed = 0;
       }
-      isShooterOn = !isShooterOn;
     }
-
   }
 }
