@@ -1,18 +1,22 @@
 package frc.robot.commands;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Logger;
 import frc.robot.Settings;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeSpinnerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakePosSubsystem;
 
 public class OperatorCommand extends Command {
 
   private PS4Controller ps4controller;
 
-  private IntakeSubsystem intake;
+  private IntakeSpinnerSubsystem intakeSpinner;
+  private IntakePosSubsystem intakePos;
   private ShooterSubsystem shooter;
   private IndexerSubsystem indexer;
 
@@ -20,15 +24,20 @@ public class OperatorCommand extends Command {
   private boolean isIntakeSpinnerOn = false;
   private double shooterSpeed = 0.0;
 
-  public OperatorCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
+  public OperatorCommand(IntakeSpinnerSubsystem intakeSpinner, IntakePosSubsystem intakePos, ShooterSubsystem shooter) {
     Logger.Log("operator command constructed");
-
-    this.intake = intake;
+    this.intakeSpinner = intakeSpinner;
+    this.intakePos = intakePos;
     this.shooter = shooter;
+
     // line below was missing!
-    if (intake != null) {
-      addRequirements(intake);
-    } // Default commands must require their subsystem
+    // Default commands must require their subsystem
+    if (intakeSpinner != null) {
+      addRequirements(intakeSpinner);
+    }
+    if (intakePos != null) {
+      addRequirements(intakePos);
+    }
     if (shooter != null) {
       addRequirements(shooter);
     }
@@ -39,24 +48,23 @@ public class OperatorCommand extends Command {
   @Override
   public void execute() {
     // intake pos
-    // if (ps4controller.getTriangleButtonPressed()) {
-    // Logger.Log("Triangle button pressed");
-    // if (!isIntakeOpen) {
-    // intake.setPositionOpen();
-    // } else {
-    // intake.setPositionClosed();
-    // }
-    // isIntakeOpen = !isIntakeOpen;
-    // }
-    // Logger.Log("POV:" + ps4controller.getPOV());
-
-    // intake spinner
     if (ps4controller.getSquareButtonPressed()) {
       Logger.Log("Square button pressed");
-      if (!isIntakeSpinnerOn) {
-        intake.spin();
+      if (!isIntakeOpen) {
+        intakePos.setPositionOpen();
       } else {
-        intake.stop();
+        intakePos.setPositionClosed();
+      }
+      isIntakeOpen = !isIntakeOpen;
+    }
+
+    // intake spinner
+    if (ps4controller.getTriangleButtonPressed()) {
+      Logger.Log("Triangle button pressed");
+      if (!isIntakeSpinnerOn) {
+        intakeSpinner.spin();
+      } else {
+        intakeSpinner.stop();
       }
       isIntakeSpinnerOn = !isIntakeSpinnerOn;
     }
@@ -64,9 +72,9 @@ public class OperatorCommand extends Command {
     // shooter
     if (ps4controller.getCircleButtonPressed()) {
       Logger.Log("Circle button pressed");
-      if (shooterSpeed != 1) {
+      if (shooterSpeed != Settings.SHOOTER_SPEED_MAX) {
         shooter.run_max();
-        shooterSpeed = 1;
+        shooterSpeed = Settings.SHOOTER_SPEED_MAX;
       } else {
         shooter.stop();
         shooterSpeed = 0;
@@ -74,9 +82,9 @@ public class OperatorCommand extends Command {
     }
     if (ps4controller.getR1ButtonPressed()) {
       Logger.Log("R1 button pressed");
-      if (shooterSpeed != 0.75) {
+      if (shooterSpeed != Settings.SHOOTER_SPEED_R1) {
         shooter.run_75();
-        shooterSpeed = 0.75;
+        shooterSpeed = Settings.SHOOTER_SPEED_R1;
       } else {
         shooter.stop();
         shooterSpeed = 0;
@@ -84,9 +92,9 @@ public class OperatorCommand extends Command {
     }
     if (ps4controller.getR2ButtonPressed()) {
       Logger.Log("R2 button pressed");
-      if (shooterSpeed != 0.5) {
+      if (shooterSpeed != Settings.SHOOTER_SPEED_R2) {
         shooter.run_half();
-        shooterSpeed = 0.5;
+        shooterSpeed = Settings.SHOOTER_SPEED_R2;
       } else {
         shooter.stop();
         shooterSpeed = 0;

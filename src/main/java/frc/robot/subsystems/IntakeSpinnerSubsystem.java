@@ -8,19 +8,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Settings;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeSpinnerSubsystem extends SubsystemBase {
 
-  // 20:1 gear ratio
-  // private double openPosition = 5;
-  // private double closedPosition = 0;
   private double spinnerSpeed = -0.4;
-  // private TalonFX intakePosition;
   private TalonFX spinner;
   private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
 
-  public IntakeSubsystem() {
+  public IntakeSpinnerSubsystem() {
 
-    // intakePosition = new TalonFX(Settings.INTAKE_POS_MOTOR_ID);
     spinner = new TalonFX(Settings.INTAKE_SPIN_MOTOR_ID);
 
     // set up the motor configs
@@ -29,7 +24,6 @@ public class IntakeSubsystem extends SubsystemBase {
     motorConfig.CurrentLimits.SupplyCurrentLimitEnable = Constants.Swerve.supplyCurrentLimitEnable;
 
     // now set up the motor
-    // intakePosition.getConfigurator().apply(motorConfig);
     spinner.getConfigurator().apply(motorConfig);
 
     // now the motor is ready to be controlled
@@ -42,14 +36,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void stop() {
     spinner.set(0);
   }
-
-  // public void setPositionOpen() {
-  // intakePosition.setPosition(openPosition);
-  // }
-
-  // public void setPositionClosed() {
-  // intakePosition.setPosition(closedPosition);
-  // }
 
   @Override
   public void periodic() {

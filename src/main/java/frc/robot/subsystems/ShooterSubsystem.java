@@ -37,20 +37,20 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void run_max() {
-    topMotor.set(1);
-    bottomMotor.set(-1);
+    topMotor.set(Settings.SHOOTER_SPEED_MAX);
+    bottomMotor.set(-Settings.SHOOTER_SPEED_MAX);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
   public void run_75() {
-    topMotor.set(0.75);
-    bottomMotor.set(-0.75);
+    topMotor.set(Settings.SHOOTER_SPEED_R1);
+    bottomMotor.set(-Settings.SHOOTER_SPEED_R1);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
   public void run_half() {
-    topMotor.set(0.5);
-    bottomMotor.set(-0.5);
+    topMotor.set(Settings.SHOOTER_SPEED_R2);
+    bottomMotor.set(-Settings.SHOOTER_SPEED_R2);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
