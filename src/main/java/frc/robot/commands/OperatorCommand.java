@@ -65,11 +65,9 @@ public class OperatorCommand extends Command {
     if (ps4controller.getCircleButtonPressed()) {
       Logger.Log("Circle button pressed");
       if (shooterSpeed != 1) {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.run_max();
         shooterSpeed = 1;
       } else {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
         shooterSpeed = 0;
       }
@@ -77,11 +75,9 @@ public class OperatorCommand extends Command {
     if (ps4controller.getR1ButtonPressed()) {
       Logger.Log("R1 button pressed");
       if (shooterSpeed != 0.75) {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.run_75();
         shooterSpeed = 0.75;
       } else {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
         shooterSpeed = 0;
       }
@@ -89,11 +85,9 @@ public class OperatorCommand extends Command {
     if (ps4controller.getR2ButtonPressed()) {
       Logger.Log("R2 button pressed");
       if (shooterSpeed != 0.5) {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.run_half();
         shooterSpeed = 0.5;
       } else {
-        Logger.Log("v: " + shooter.getCurrentVelocity());
         shooter.stop();
         shooterSpeed = 0;
       }
