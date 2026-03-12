@@ -57,17 +57,14 @@ public class Robot extends TimedRobot {
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     limelightTable = inst.getTable("limelight");
-    // Logger.Log("Got limelightTable: " + limelightTable.toString());
-
-    limelightTable.getEntry("stream").setNumber(0);
-    // CameraServer.startAutomaticCapture("", "http://172.28.0.1:5800");
-    // url taken directly from the nt data values but it dpesnt load??? need to fix
-
     // Logger.Log("Got heartbeat: " +
     // LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
 
-    // tvEntry = limelightTable.getEntry("tv"); // target value
-    // tidEntry = limelightTable.getEntry("tid"); // target apriltag id
+    LimelightHelpers.setupPortForwardingUSB(0);
+    LimelightHelpers.setPipelineIndex("", 0);
+    limelightTable.getEntry("stream").setNumber(0);
+    // CameraServer.startAutomaticCapture("", "http://172.28.0.1:5800");
+    // url taken directly from the nt data values but it dpesnt load??? need to fix
 
     LimelightHelpers.setPipelineIndex("", 0);
   }
