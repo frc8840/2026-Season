@@ -42,7 +42,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
   }
 
-  public void run_75() {
+  public void run_07() {
     topMotor.set(Settings.SHOOTER_SPEED_R1);
     bottomMotor.set(-Settings.SHOOTER_SPEED_R1);
     // Logger.Log("lMotor current: " + lMotor.getOutputCurrent());
