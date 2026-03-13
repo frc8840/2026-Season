@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.lib.config.CTREConfigs;
 import frc.robot.LimelightHelpers.LimelightResults;
@@ -66,6 +67,10 @@ public class Robot extends TimedRobot {
     // CameraServer.startAutomaticCapture("", "http://172.28.0.1:5800");
     // url taken directly from the nt data values but it dpesnt load??? need to fix
 
+    // 172.29.0.23 <- nt ip for test roborio
+    // http://169.254.77.16:5801/ <- config
+    // http://169.254.77.16:5800/ <- stream
+
     LimelightHelpers.setPipelineIndex("", 0);
   }
 
@@ -92,12 +97,14 @@ public class Robot extends TimedRobot {
     // }
     // }
 
-    boolean hasTarget = LimelightHelpers.getTV("");
+    // boolean hasTarget = LimelightHelpers.getTV("");
     // Logger.LogPeriodic("Got heartbeat: " +
     // LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
     // Logger.LogPeriodic("has target: " + hasTarget);
 
-    double tagID = LimelightHelpers.getFiducialID("");
+    // double tagID = LimelightHelpers.getFiducialID("");
+
+    // double tx = LimelightHelpers.getTX("");
     // Logger.LogPeriodic("tagID: " + tagID);
 
     // tvEntry.getBoolean(false);
@@ -107,7 +114,7 @@ public class Robot extends TimedRobot {
     // target?
     // Logger.LogPeriodic("has target:" + hasTarget);
 
-    // double tx = LimelightHelpers.getTX(""); // Horizontal offset from crosshair
+    // Horizontal offset from crosshair
     // to target in degrees
     // Logger.LogPeriodic("x pos:" + tx);
 
@@ -136,7 +143,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Logger.Log("autonomousInit called");
+    // Logger.Log("autonomousInit called");
+
+    Command autoCommand = container.getAutoCommand();
+
+    // schedule the autonomous command (example)
+    if (autoCommand != null) {
+      autoCommand.schedule();
+    }
   }
 
   /** This function is called periodically during autonomous. */

@@ -1,7 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriverCommand;
 import frc.robot.commands.OperatorCommand;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakePosSubsystem;
 import frc.robot.subsystems.IntakeSpinnerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -16,6 +20,7 @@ public class RobotContainer {
   IntakeSpinnerSubsystem intakeSpinnerSubsystem;
   IntakePosSubsystem intakePosSubsystem;
   ShooterSubsystem shooterSubsystem;
+  IndexerSubsystem indexerSubsystem;
 
   // the commands
   DriverCommand driverCommand;
@@ -23,6 +28,10 @@ public class RobotContainer {
 
   public static RobotContainer getInstance() {
     return instance;
+  }
+
+  public Command getAutoCommand() {
+    return new AutoCommand(intakePosSubsystem);
   }
 
   public RobotContainer() {
@@ -37,10 +46,13 @@ public class RobotContainer {
     intakeSpinnerSubsystem = new IntakeSpinnerSubsystem();
     intakePosSubsystem = new IntakePosSubsystem();
     // shooterSubsystem = new ShooterSubsystem();
+    indexerSubsystem = new IndexerSubsystem();
 
-    operatorCommand = new OperatorCommand(intakeSpinnerSubsystem, intakePosSubsystem, shooterSubsystem);
+    operatorCommand = new OperatorCommand(intakeSpinnerSubsystem, intakePosSubsystem, shooterSubsystem,
+        indexerSubsystem);
     intakeSpinnerSubsystem.setDefaultCommand(operatorCommand);
     intakePosSubsystem.setDefaultCommand(operatorCommand);
     // shooterSubsystem.setDefaultCommand(operatorCommand);
+    indexerSubsystem.setDefaultCommand(operatorCommand);
   }
 }

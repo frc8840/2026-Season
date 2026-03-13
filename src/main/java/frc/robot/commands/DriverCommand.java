@@ -34,9 +34,9 @@ public class DriverCommand extends Command {
   @Override
   public void execute() {
 
-    // if (xboxcontroller.getXButtonPressed()) {
-    //   swerve.zeroGyro();
-    // }
+    if (xboxcontroller.getXButtonPressed()) {
+      swerve.zeroGyro();
+    }
 
     if (xboxcontroller.getYButtonPressed()) {
       swerve.printCancoderAngles(); // for debugging
@@ -49,22 +49,19 @@ public class DriverCommand extends Command {
     // get desired robot velocities from the Xbox Controller joysticks
     // apply the deadband so we don't do anything right around the center of the
     // joysticks
-    double translationVelocity =
-        translationLimiter.calculate(MathUtil.applyDeadband(-xboxcontroller.getLeftY(), 0.1));
-    double strafeVelocity =
-        strafeLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getLeftX(), 0.1));
-    double rotationVelocity =
-        rotationLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getRightX(), 0.05));
+    double translationVelocity = translationLimiter.calculate(MathUtil.applyDeadband(-xboxcontroller.getLeftY(), 0.1));
+    double strafeVelocity = strafeLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getLeftX(), 0.1));
+    double rotationVelocity = rotationLimiter.calculate(MathUtil.applyDeadband(xboxcontroller.getRightX(), 0.05));
 
     /* Drive */
     Logger.LogPeriodic(
-          "swerve.drive() called with translation=" + translationVelocity + " and strafe=" + strafeVelocity);
-      
+        "swerve.drive() called with translation=" + translationVelocity + " and strafe=" + strafeVelocity);
+
     swerve.drive(
-            new Translation2d(translationVelocity, strafeVelocity)
-                .times(Constants.Swerve.maxSpeedMetersPerSecond), // convert to m/s
-            rotationVelocity * Constants.Swerve.maxAngularVelocityRadiansPerSecond,
-            fieldRelative);
+        new Translation2d(translationVelocity, strafeVelocity)
+            .times(Constants.Swerve.maxSpeedMetersPerSecond), // convert to m/s
+        rotationVelocity * Constants.Swerve.maxAngularVelocityRadiansPerSecond,
+        fieldRelative);
     // ask for ChassisSpeeds so we can print it to logs for debugging
     ChassisSpeeds chassisSpeeds = swerve.getChassisSpeeds();
     Logger.LogPeriodic("getChassisSpeeds: " + chassisSpeeds);

@@ -31,8 +31,6 @@ public class Settings {
   public static final double SHOOTER_SPEED_R2 = 0.5;
 
   // INDEXER SHOOTER SETTINGS
-  public static final int INDEXER_TOP_MOTOR_ID = 66;
-  public static final int INDEXER_BOTTOM_MOTOR_ID = 77;
-  public static final double INDEXER_TOP_SPEED = 0.67;
-  public static final double INDEXER_BOTTOM_SPEED = 0.76;
+  public static final int INDEXER_MOTOR_ID = 24;
+  public static final double INDEXER_SPEED = 0.7;
 }

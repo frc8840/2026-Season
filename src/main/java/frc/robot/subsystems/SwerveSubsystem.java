@@ -141,7 +141,8 @@ public class SwerveSubsystem extends SubsystemBase {
             + speeds.vyMetersPerSecond
             + " and "
             + speeds.omegaRadiansPerSecond);
-    // magic happens now: we translate the desired chassis speeds into state (commands)
+    // magic happens now: we translate the desired chassis speeds into state
+    // (commands)
     // for the individual modules
     SwerveModuleState[] swerveModuleStates = Constants.Swerve.swerveKinematics.toSwerveModuleStates(speeds);
     // do we need the below?
@@ -227,9 +228,9 @@ public class SwerveSubsystem extends SubsystemBase {
     Logger.Log("zeroGyro called with " + gyro.getYaw());
     if (!gyro.isCalibrating()) {
       gyro.zeroYaw();
-      Logger.Log("ZEROed gyro!!!: got " + gyro.getYaw());
+      Logger.Log("zeroGyro HAPPY: got " + gyro.getYaw());
     } else {
-      Logger.Log("NOT zeroing gyro");
+      Logger.Log("zeroGyro SAD");
     }
   }
 
