@@ -20,7 +20,7 @@ public class OperatorCommand extends Command {
   private ShooterSubsystem shooter;
   private IndexerSubsystem indexer;
 
-  private boolean isIntakeOpen = false;
+  public boolean isIntakeOpen = false;
   private boolean isIntakeSpinnerOn = false;
   private double shooterSpeed = 0.0;
   private boolean isIndexerOn = false;

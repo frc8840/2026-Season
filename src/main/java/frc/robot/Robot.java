@@ -145,6 +145,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // Logger.Log("autonomousInit called");
 
+    container.operatorCommand.isIntakeOpen = true;
+
     Command autoCommand = container.getAutoCommand();
 
     // schedule the autonomous command (example)
