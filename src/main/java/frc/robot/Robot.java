@@ -87,41 +87,6 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Logger.loopCounter++;
     CommandScheduler.getInstance().run();
-
-    // if (Logger.loopCounter % 100 == 0) {
-    // var connections = NetworkTableInstance.getDefault().getConnections();
-    // Logger.Log("NT Connections: " + connections.length);
-    // for (int i = 0; i < connections.length; i++) {
-    // Logger.Log("NT Conn: " + connections[i].remote_id + " " +
-    // connections[i].remote_ip);
-    // }
-    // }
-
-    // boolean hasTarget = LimelightHelpers.getTV("");
-    // Logger.LogPeriodic("Got heartbeat: " +
-    // LimelightHelpers.getLimelightNTDouble("limelight", "hb"));
-    // Logger.LogPeriodic("has target: " + hasTarget);
-
-    // double tagID = LimelightHelpers.getFiducialID("");
-
-    // double tx = LimelightHelpers.getTX("");
-    // Logger.LogPeriodic("tagID: " + tagID);
-
-    // tvEntry.getBoolean(false);
-    // tidEntry.getDouble(0);
-
-    // boolean hasTarget = LimelightHelpers.getTV(""); // Do you have a valid
-    // target?
-    // Logger.LogPeriodic("has target:" + hasTarget);
-
-    // Horizontal offset from crosshair
-    // to target in degrees
-    // Logger.LogPeriodic("x pos:" + tx);
-
-    // Logger.LogPeriodic(
-    // "AAAAAAAAA" +
-    // NetworkTableInstance.getDefault().getTable("limelight").getKeys());
-
   }
 
   /**
