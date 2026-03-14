@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriverCommand;
 import frc.robot.commands.OperatorCommand;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -31,7 +32,7 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    return new AutoCommand(intakePosSubsystem, shooterSubsystem);
+    return new AutoCommand(intakePosSubsystem, indexerSubsystem, shooterSubsystem);
   }
 
   public RobotContainer() {
