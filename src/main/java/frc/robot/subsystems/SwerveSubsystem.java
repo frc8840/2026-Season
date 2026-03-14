@@ -247,51 +247,9 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     odometer.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    for (KrakenSwerveModule mod : mSwerveMods) {
-      // SmartDashboard.putNumber(
-      // "Mod " + mod.moduleNumber + " Cancoder",
-      // mod.getCanCoderAngle().getDegrees());
-      // Shuffleboard.getTab("LiveWindow")
-      // .add("Mod " + mod.moduleNumber + " StateAngle",
-      // mod.getState().angle.getDegrees())
-      // .withPosition(4, 4)
-      // .withSize(1, 1);
-      // SmartDashboard.putNumber(
-      // "Mod " + mod.moduleNumber + " StateAngle",
-      // mod.getState().angle.getDegrees());
-      // Shuffleboard.getTab("LiveWindow")
-      // .add("Mod " + mod.moduleNumber + " Speed",
-      // mod.getState().speedMetersPerSecond)
-      // .withPosition(6, 4)
-      // .withSize(1, 1);
-      // SmartDashboard.putNumber(
-      // "Mod " + mod.moduleNumber + " Speed", mod.getState().speedMetersPerSecond);
-      // SmartDashboard.putNumber(
-      // "Mod " + mod.moduleNumber + " Distance", mod.getPosition().distanceMeters);
-    }
-    // tell dashboard where the robot thinks it is
-    // Shuffleboard.getTab("LiveWindow")
-    // .add("Robot Heading", gyro.getYaw())
-    // .withPosition(6, 2)
-    // .withSize(1, 1);
-    SmartDashboard.putNumber("Robot heading:", gyro.getYaw());
-    // Shuffleboard.getTab("LiveWindow")
-    // .add("Robot Location", getPose().getTranslation().toString())
-    // .withPosition(4, 2)
-    // .withSize(1, 1);
-    SmartDashboard.putString("Robot location:", getPose().getTranslation().toString());
-    // SmartDashboard.putString("Module Positions: ", getPositions().toString());
-    // for (KrakenSwerveModule mod : mSwerveMods) {
-    // // No voltage being sent to angleMotor, but is being sent to driveMotor
-    // Logger.Log("Module " + mod.moduleNumber + " Angle Motor Voltage" +
-    // mod.angleMotor.getMotorVoltage().getValueAsDouble());
-    // }
-    // try {
-    // updateSwerveEstimator();
-    // } catch (NoSuchMethodError e) {
-    // System.err.println(e);
-    // }
-
+    SmartDashboard.putNumber("Gyro heading:", gyro.getYaw());
+    SmartDashboard.putString("Odometer heading:", getPose().getRotation().toString());
+    SmartDashboard.putString("Odometer location:", getPose().getTranslation().toString());
   }
 
   public void stopModules() {
