@@ -87,35 +87,35 @@ public class OperatorCommand extends Command {
     }
 
     // shooter
-    // if (ps4controller.getCircleButtonPressed()) {
-    // Logger.Log("Circle button pressed");
-    // if (shooterSpeed != Settings.SHOOTER_SPEED_MAX) {
-    // shooter.run_max();
-    // shooterSpeed = Settings.SHOOTER_SPEED_MAX;
-    // } else {
-    // shooter.stop();
-    // shooterSpeed = 0;
-    // }
-    // }
-    // if (ps4controller.getR1ButtonPressed()) {
-    // Logger.Log("R1 button pressed");
-    // if (shooterSpeed != Settings.SHOOTER_SPEED_R1) {
-    // shooter.run_75();
-    // shooterSpeed = Settings.SHOOTER_SPEED_R1;
-    // } else {
-    // shooter.stop();
-    // shooterSpeed = 0;
-    // }
-    // }
-    // if (ps4controller.getR2ButtonPressed()) {
-    // Logger.Log("R2 button pressed");
-    // if (shooterSpeed != Settings.SHOOTER_SPEED_R2) {
-    // shooter.run_half();
-    // shooterSpeed = Settings.SHOOTER_SPEED_R2;
-    // } else {
-    // shooter.stop();
-    // shooterSpeed = 0;
-    // }
-    // }
+    if (ps4controller.getCircleButtonPressed()) {
+      Logger.Log("Circle button pressed");
+      if (shooterSpeed != Settings.SHOOTER_SPEED_MAX) {
+        shooter.run_max();
+        shooterSpeed = Settings.SHOOTER_SPEED_MAX;
+      } else {
+        shooter.stop();
+        shooterSpeed = 0;
+      }
+    }
+    if (ps4controller.getR1ButtonPressed()) {
+      Logger.Log("R1 button pressed");
+      if (shooterSpeed != Settings.SHOOTER_SPEED_R1) {
+        shooter.run_07();
+        shooterSpeed = Settings.SHOOTER_SPEED_R1;
+      } else {
+        shooter.stop();
+        shooterSpeed = 0;
+      }
+    }
+    if (ps4controller.getR2ButtonPressed()) {
+      Logger.Log("R2 button pressed");
+      if (shooterSpeed != Settings.SHOOTER_SPEED_R2) {
+        shooter.run_half();
+        shooterSpeed = Settings.SHOOTER_SPEED_R2;
+      } else {
+        shooter.stop();
+        shooterSpeed = 0;
+      }
+    }
   }
 }
