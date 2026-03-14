@@ -20,7 +20,7 @@ public class OperatorCommand extends Command {
   private ShooterSubsystem shooter;
   private IndexerSubsystem indexer;
 
-  private boolean isIntakeOpen = false;
+  public boolean isIntakeOpen = false;
   private boolean isIntakeSpinnerOn = false;
   private double shooterSpeed = 0.0;
   private boolean isIndexerOn = false;
@@ -76,8 +76,8 @@ public class OperatorCommand extends Command {
     }
 
     // indexer
-    if (ps4controller.getCircleButtonPressed()) {
-      Logger.Log("CIrcle button pressed");
+    if (ps4controller.getCircleButtonPressed() || ps4controller.getR1ButtonPressed()
+        || ps4controller.getR2ButtonPressed()) {
       if (!isIndexerOn) {
         indexer.indexify();
       } else {
