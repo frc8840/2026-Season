@@ -12,7 +12,7 @@ public class AutoCommand extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(() -> intakePosSubsystem.setPositionOpen(), intakePosSubsystem),
                 new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
-                new InstantCommand(() -> shooterSubsystem.run_07(), shooterSubsystem));
+                new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
     }
 
 }

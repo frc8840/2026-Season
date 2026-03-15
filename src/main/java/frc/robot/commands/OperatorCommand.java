@@ -21,7 +21,7 @@ public class OperatorCommand extends Command {
   private IndexerSubsystem indexer;
 
   public boolean isIntakeOpen = false;
-  private boolean isIntakeSpinnerOn = false;
+  private int intakeIn = 0; // 0 = off, 1 = in, 2 = out
   private double shooterSpeed = 0.0;
   private boolean isIndexerOn = false;
 
@@ -54,30 +54,48 @@ public class OperatorCommand extends Command {
   @Override
   public void execute() {
     // intake pos
-    if (ps4controller.getSquareButtonPressed()) {
-      Logger.Log("Square button pressed");
-      if (!isIntakeOpen) {
-        intakePos.setPositionOpen();
-      } else {
-        intakePos.setPositionClosed();
-      }
-      isIntakeOpen = !isIntakeOpen;
+    // if (ps4controller.getSquareButtonPressed()) {
+    // Logger.Log("Square button pressed");
+    // if (!isIntakeOpen) {
+    // intakePos.setPositionOpen();
+    // } else {
+    // intakePos.setPositionClosed();
+    // }
+    // isIntakeOpen = !isIntakeOpen;
+    // }
+
+    if (ps4controller.getL1ButtonPressed()) {
+      intakePos.setPositionClosed();
+    }
+
+    if (ps4controller.getL2ButtonPressed()) {
+      intakePos.setPositionOpen();
     }
 
     // intake spinner
     if (ps4controller.getTriangleButtonPressed()) {
       Logger.Log("Triangle button pressed");
-      if (!isIntakeSpinnerOn) {
-        intakeSpinner.spin();
+      if (intakeIn != 1) {
+        intakeSpinner.spinIn();
+        intakeIn = 1;
       } else {
         intakeSpinner.stop();
+        intakeIn = 0;
       }
-      isIntakeSpinnerOn = !isIntakeSpinnerOn;
+    }
+    if (ps4controller.getSquareButtonPressed()) {
+      Logger.Log("Square button pressed");
+      if (intakeIn != 2) {
+        intakeSpinner.spinOut();
+        intakeIn = 2;
+      } else {
+        intakeSpinner.stop();
+        intakeIn = 0;
+      }
     }
 
     // indexer
-    if (ps4controller.getCircleButtonPressed() || ps4controller.getR1ButtonPressed()
-        || ps4controller.getR2ButtonPressed()) {
+    if (ps4controller.getCrossButtonPressed()) {
       if (!isIndexerOn) {
         indexer.indexify();
       } else {
@@ -110,7 +128,7 @@ public class OperatorCommand extends Command {
     if (ps4controller.getR2ButtonPressed()) {
       Logger.Log("R2 button pressed");
       if (shooterSpeed != Settings.SHOOTER_SPEED_R2) {
-        shooter.run_half();
+        shooter.run_05();
         shooterSpeed = Settings.SHOOTER_SPEED_R2;
       } else {
         shooter.stop();

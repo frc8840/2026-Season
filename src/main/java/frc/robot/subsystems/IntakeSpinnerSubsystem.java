@@ -10,7 +10,8 @@ import frc.robot.Settings;
 
 public class IntakeSpinnerSubsystem extends SubsystemBase {
 
-  private double spinnerSpeed = -0.4;
+  private double spinnerSpeedIn = -0.4;
+  private double spinnerSpeedOut = -spinnerSpeedIn;
   private TalonFX spinner;
   private TalonFXConfiguration motorConfig = new TalonFXConfiguration();
 
@@ -29,8 +30,12 @@ public class IntakeSpinnerSubsystem extends SubsystemBase {
     // now the motor is ready to be controlled
   }
 
-  public void spin() {
-    spinner.set(spinnerSpeed);
+  public void spinIn() {
+    spinner.set(spinnerSpeedIn);
+  }
+
+  public void spinOut() {
+    spinner.set(spinnerSpeedOut);
   }
 
   public void stop() {

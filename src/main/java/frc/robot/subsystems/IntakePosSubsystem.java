@@ -33,7 +33,7 @@ public class IntakePosSubsystem extends SubsystemBase {
 
     public void setPositionOpen() {
         timer.start();
-        intakePosition.setVoltage(-1);
+        intakePosition.setVoltage(-0.5);
     }
 
     public void setPositionClosed() {

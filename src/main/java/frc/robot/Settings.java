@@ -20,8 +20,6 @@ public class Settings {
   // INTAKE SETTINGS
   public static final int INTAKE_POS_MOTOR_ID = 33;
   public static final int INTAKE_SPIN_MOTOR_ID = 30;
-  // public static final double PICKUP_OUTTAKE_SPEED = -0.2;
-  // public static final double PICKUP_INTAKE_SPEED = 0.25;
 
   // SHOOTER SETTINGS
   public static final int SHOOTER_TOP_MOTOR_ID = 21;
@@ -32,5 +30,5 @@ public class Settings {
 
   // INDEXER SHOOTER SETTINGS
   public static final int INDEXER_MOTOR_ID = 24;
-  public static final double INDEXER_SPEED = 0.7;
+  public static final double INDEXER_SPEED = 0.8;
 }
