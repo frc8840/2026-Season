@@ -31,6 +31,10 @@ public class IndexerSubsystem extends SubsystemBase {
         motor.set(Settings.INDEXER_SPEED);
     }
 
+    public void indexerOut() {
+        motor.set(-Settings.INDEXER_SPEED);
+    }
+
     public void die() {
         motor.set(0);
     }

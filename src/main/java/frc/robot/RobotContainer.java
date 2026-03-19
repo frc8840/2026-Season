@@ -1,5 +1,6 @@
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -45,40 +46,41 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.Swerve.swerveKinematics);
+    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+        Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+        .setKinematics(Constants.Swerve.swerveKinematics);
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-      new Pose2d(0, 0, new Rotation2d(0)),
-      List.of(new Translation2d(-1, 0)),
-      new Pose2d(-1, 0, Rotation2d.fromDegrees(0)),
-      trajectoryConfig
-    );
+        new Pose2d(0, 0, new Rotation2d(0)),
+        List.of(),
+        new Pose2d(2, 0, Rotation2d.fromDegrees(0)),
+        trajectoryConfig);
 
     PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
     PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
-    ProfiledPIDController thController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    ProfiledPIDController thController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
+        AutoConstants.kThetaControllerConstraints);
     thController.enableContinuousInput(-Math.PI, Math.PI);
 
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-      trajectory,
-      swerveSubsystem::getPose,
-      Swerve.swerveKinematics,
-      xController,
-      yController,
-      thController,
-      swerveSubsystem::setModuleStates,
-      swerveSubsystem
-    );
+        trajectory,
+        swerveSubsystem::getPose,
+        Swerve.swerveKinematics,
+        xController,
+        yController,
+        thController,
+        swerveSubsystem::setModuleStates,
+        swerveSubsystem);
 
     return new SequentialCommandGroup(
-      new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose())),
-      swerveControllerCommand,
-      new InstantCommand(() -> intakePosSubsystem.setPositionOpen(), intakePosSubsystem),
-      new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
-      new InstantCommand(() -> shooterSubsystem.run_07(), shooterSubsystem)
-    );
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
+        swerveControllerCommand,
+        new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
+        new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
+        new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
 
-    // return new AutoCommand(intakePosSubsystem, indexerSubsystem, shooterSubsystem);
+    // new InstantCommand(() -> intakePosSubsystem.setPositionOpen(),
+    // intakePosSubsystem)
   }
 
   public RobotContainer() {

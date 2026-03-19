@@ -23,7 +23,7 @@ public class OperatorCommand extends Command {
   public boolean isIntakeOpen = false;
   private int intakeIn = 0; // 0 = off, 1 = in, 2 = out
   private double shooterSpeed = 0.0;
-  private boolean isIndexerOn = false;
+  private int indexerIn = 0;
 
   public OperatorCommand(IntakeSpinnerSubsystem intakeSpinner, IntakePosSubsystem intakePos, ShooterSubsystem shooter,
       IndexerSubsystem indexer) {
@@ -65,11 +65,11 @@ public class OperatorCommand extends Command {
     // }
 
     if (ps4controller.getL1ButtonPressed()) {
-      intakePos.setPositionClosed();
+      intakePos.setPositionClosedTimer();
     }
 
     if (ps4controller.getL2ButtonPressed()) {
-      intakePos.setPositionOpen();
+      intakePos.setPositionOpenTimer();
     }
 
     // intake spinner
@@ -96,12 +96,24 @@ public class OperatorCommand extends Command {
 
     // indexer
     if (ps4controller.getCrossButtonPressed()) {
-      if (!isIndexerOn) {
+      Logger.Log("Cross button pressed");
+      if (indexerIn != 1) {
         indexer.indexify();
+        indexerIn = 1;
       } else {
         indexer.die();
+        indexerIn = 0;
       }
-      isIndexerOn = !isIndexerOn;
+    }
+    if (ps4controller.getPSButtonPressed()) {
+      Logger.Log("PS button pressed");
+      if (indexerIn != 2) {
+        indexer.indexerOut();
+        indexerIn = 2;
+      } else {
+        indexer.die();
+        indexerIn = 0;
+      }
     }
 
     // shooter
