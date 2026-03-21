@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.lib.util.MathUtil;
 import java.util.Optional;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -12,6 +13,8 @@ import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.Logger;
 import frc.robot.commands.DriverCommand;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AimSubsystem extends SubsystemBase {
 
@@ -109,5 +112,24 @@ public class AimSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         updateLimelightOrientation();
+    }
+
+    public void shooting_angle() {
+        double shooter_velocity = 0;
+        double shooter_angle = 45;
+        double y_scoring_distance = 0;
+        double x_scoring_distance = 0;
+        // add calling varibales from other areas ^
+        double x_shooter_velocity = shooter_velocity * Math.cos(shooter_angle);
+        double y_shooter_velocity = shooter_velocity * Math.sin(shooter_angle);
+        double x_time_to_score = x_scoring_distance / x_shooter_velocity;
+        List<Double> y_time_to_score = MathUtil.quadratic_equation(-4.905, y_shooter_velocity, y_scoring_distance);
+
+        if (x_time_to_score > 0 && y_time_to_score.contains(x_time_to_score)) {
+            Logger.Log("can score at:" + x_time_to_score);
+
+        } else {
+            Logger.Log("cannot score");
+        }
     }
 }
