@@ -31,14 +31,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public SwerveSubsystem() {
     gyro = new AHRS(NavXComType.kMXP_SPI);
-    new Thread(() -> {
-      try {
-        Thread.sleep(1000);
-        zeroGyro();
-      } catch (Exception e) {
-      }
+    // new Thread(() -> {
+    // try {
+    // Thread.sleep(5000);
+    // zeroGyro();
+    // } catch (Exception e) {
+    // }
 
-    }).start();
+    // }).start();
+
+    zeroGyro();
 
     SwerveModulePosition[] startPositions = new SwerveModulePosition[4];
     for (int i = 0; i < 4; i++) {

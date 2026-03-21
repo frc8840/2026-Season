@@ -94,14 +94,14 @@ public class RobotContainer {
     // construct and link together operator command
     intakeSpinnerSubsystem = new IntakeSpinnerSubsystem();
     intakePosSubsystem = new IntakePosSubsystem();
-    shooterSubsystem = new ShooterSubsystem();
+    // shooterSubsystem = new ShooterSubsystem();
     indexerSubsystem = new IndexerSubsystem();
 
     operatorCommand = new OperatorCommand(intakeSpinnerSubsystem, intakePosSubsystem, shooterSubsystem,
         indexerSubsystem);
     intakeSpinnerSubsystem.setDefaultCommand(operatorCommand);
     intakePosSubsystem.setDefaultCommand(operatorCommand);
-    shooterSubsystem.setDefaultCommand(operatorCommand);
+    // shooterSubsystem.setDefaultCommand(operatorCommand);
     indexerSubsystem.setDefaultCommand(operatorCommand);
   }
 }
