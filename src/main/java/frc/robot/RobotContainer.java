@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Swerve;
 import frc.robot.commands.DriverCommand;
@@ -75,12 +76,28 @@ public class RobotContainer {
         swerveSubsystem);
     Logger.Log("swerveControlledCommand defined!!!");
 
-    return new SequentialCommandGroup(
-        new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
-        swerveControllerCommand,
-        new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
+    Command command = new SequentialCommandGroup(
+        new InstantCommand(() -> waitFor(3)),    
+        swerveControllerCommand,    
         new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
-        new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
+        new InstantCommand(() -> waitFor(3))        
+        // new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
+        // 
+        // new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem)
+        // new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem)
+        );
+    Logger.Log("Defined SequentialCommandGroup");
+    return command;
+  }
+
+  public void waitFor(int seconds) {
+    Logger.Log("waitFor starting");
+    try {
+      Thread.sleep(seconds * 1000);
+    } catch (InterruptedException e) {
+      // do nothing
+    }
+    Logger.Log("waitFor ending");
   }
 
   public RobotContainer() {

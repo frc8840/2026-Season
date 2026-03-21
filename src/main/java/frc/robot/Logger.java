@@ -8,6 +8,8 @@ public class Logger {
 
   public static int loopCounter = 0; // who is incrementing this? Robot
 
+  // this will only print to log 1 out of 100 calls
+  // use this one if you're calling from inside Periodic
   public static void LogPeriodic(String message) {
     if (loopCounter % 100 == 0) {
       System.out.println(loopCounter + ": " + message);

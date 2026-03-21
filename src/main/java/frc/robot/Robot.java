@@ -112,17 +112,22 @@ public class Robot extends TimedRobot {
     // container.operatorCommand.isIntakeOpen = true;
 
     Command autoCommand = container.getAutoCommand();
+    Logger.Log("Got autoCommand:  " + autoCommand);
     // schedule the autonomous command (example)
     if (autoCommand != null) {
+      Logger.Log("About to schedule Auto Command!");
       autoCommand.schedule();
       Logger.Log("Scheduled Auto Command!");
+    } else {
+      Logger.Log("NOT scheduled Auto Command!");
     }
+    Logger.Log("autonomousInit finished");
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // don't put a log here
+    CommandScheduler.getInstance().run();
   }
 
   /** This function is called once when teleop is enabled. */
