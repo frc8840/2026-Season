@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -17,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.Swerve;
-import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriverCommand;
 import frc.robot.commands.OperatorCommand;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -46,15 +44,19 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
+    Logger.Log("getAutoCommand() called");
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
         .setKinematics(Constants.Swerve.swerveKinematics);
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(),
-        new Pose2d(2, 0, Rotation2d.fromDegrees(0)),
+        List.of(
+            new Translation2d(1, 0),
+            new Translation2d(1, -1)),
+        new Pose2d(2, -1, new Rotation2d(0)),
         trajectoryConfig);
+    Logger.Log("trajectory generated!");
 
     PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
     PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
@@ -71,6 +73,7 @@ public class RobotContainer {
         thController,
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
+    Logger.Log("swerveControlledCommand defined!!!");
 
     return new SequentialCommandGroup(
         new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
@@ -78,9 +81,6 @@ public class RobotContainer {
         new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
         new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
         new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
-
-    // new InstantCommand(() -> intakePosSubsystem.setPositionOpen(),
-    // intakePosSubsystem)
   }
 
   public RobotContainer() {
