@@ -185,9 +185,11 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
-  // used by auto
+  // used by autonomous command to operate the swerve system
   public void setModuleStates(SwerveModuleState[] desiredStates) {
+    Logger.LogPeriodic("setModuleStates called with");
     for (int i = 0; i < mSwerveMods.length; i++) {
+      Logger.Log(i + ": " + desiredStates[i]);
       mSwerveMods[i].setDesiredState(desiredStates[i]);
     }
   }
