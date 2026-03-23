@@ -80,13 +80,11 @@ public class RobotContainer {
 
     Command command = new SequentialCommandGroup(
         new InstantCommand(() -> waitFor(3)),
+        new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
         swerveControllerCommand,
+        new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
         new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
         new InstantCommand(() -> waitFor(3))
-    // new InstantCommand(() ->
-    // swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
-    //
-    // new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem)
     // new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem)
     );
     Logger.Log("Defined SequentialCommandGroup");
