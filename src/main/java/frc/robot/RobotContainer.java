@@ -57,6 +57,7 @@ public class RobotContainer {
         new Pose2d(2, -1, new Rotation2d(0)),
         trajectoryConfig);
     Logger.Log("trajectory generated!");
+    Logger.Log("" + trajectory);
 
     PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
     PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
@@ -74,13 +75,15 @@ public class RobotContainer {
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
     Logger.Log("swerveControlledCommand defined!!!");
+    Logger.Log("" + swerveControllerCommand);
 
     return new SequentialCommandGroup(
         new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
         swerveControllerCommand,
         new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
-        new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
-        new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
+        new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem));
+
+    // new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem)
   }
 
   public RobotContainer() {
