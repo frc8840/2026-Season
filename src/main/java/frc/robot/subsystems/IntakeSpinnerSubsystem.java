@@ -5,8 +5,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Settings;
+import frc.robot.swerve.Constants;
 
 public class IntakeSpinnerSubsystem extends SubsystemBase {
 

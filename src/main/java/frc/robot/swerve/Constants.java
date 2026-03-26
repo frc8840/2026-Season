@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.swerve;
 
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -21,7 +21,7 @@ public final class Constants {
         public static final class Swerve {
 
                 public static final int pigeonID = 42;
-                public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
+                public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
                 /* Drivetrain Constants */
                 // our robot this year is longer than wide

@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Logger;
+import frc.robot.swerve.SwerveSubsystem;
+
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -46,16 +48,14 @@ public class Vision extends SubsystemBase {
       Logger.Log("Field layout loaded");
       Logger.Log("April Tag 1 in layout: " + fieldLayout.getTagPose(1).isPresent());
 
-      Transform3d robotToCam =
-          new Transform3d(
-              new Translation3d(0.0, 0.2, 0.3), // adjust for your camera's position on the robot
-              new Rotation3d(0, 0, 0));
+      Transform3d robotToCam = new Transform3d(
+          new Translation3d(0.0, 0.2, 0.3), // adjust for your camera's position on the robot
+          new Rotation3d(0, 0, 0));
 
-      photonPoseEstimator =
-          new PhotonPoseEstimator(
-              fieldLayout,
-              PoseStrategy.CONSTRAINED_SOLVEPNP,
-              robotToCam); // PoseStrategy.CLOSEST_TO_REFERENCE_POSE
+      photonPoseEstimator = new PhotonPoseEstimator(
+          fieldLayout,
+          PoseStrategy.CONSTRAINED_SOLVEPNP,
+          robotToCam); // PoseStrategy.CLOSEST_TO_REFERENCE_POSE
       Logger.Log("PhotonPoseEstimator loaded: " + photonPoseEstimator);
     } catch (Exception e) {
       Logger.Log("Error loading field layout: " + e.getMessage());
@@ -75,34 +75,30 @@ public class Vision extends SubsystemBase {
     double yThresholdRightMax = -0.6; // meters
     double angleThreshold = 2.0; // degrees
 
-    boolean canScoreLeft =
-        xOffset < L2DistanceThreshold
-            && xOffset > L2DistanceMinimum
-            && yOffset < yThresholdLeft
-            && yOffset > yThresholdLeftMax
-            && angleOffset < angleThreshold
-            && angleOffset > -4.0;
-    boolean canScoreRight =
-        xOffset < L2DistanceThreshold
-            && xOffset > L2DistanceMinimum
-            && yOffset > yThresholdRight
-            && yOffset < yThresholdRightMax
-            && angleOffset < angleThreshold
-            && angleOffset > -4.0;
-    boolean canScoreL3Left =
-        xOffset < L3DistanceThreshold
-            && xOffset > L3DistanceMinimum
-            && yOffset < yThresholdLeft
-            && yOffset > yThresholdLeftMax
-            && angleOffset < angleThreshold
-            && angleOffset > -4.0;
-    boolean canScoreL3Right =
-        xOffset < L3DistanceThreshold
-            && xOffset > L3DistanceMinimum
-            && yOffset > yThresholdRight
-            && yOffset < yThresholdRightMax
-            && angleOffset < angleThreshold
-            && angleOffset > -4.0;
+    boolean canScoreLeft = xOffset < L2DistanceThreshold
+        && xOffset > L2DistanceMinimum
+        && yOffset < yThresholdLeft
+        && yOffset > yThresholdLeftMax
+        && angleOffset < angleThreshold
+        && angleOffset > -4.0;
+    boolean canScoreRight = xOffset < L2DistanceThreshold
+        && xOffset > L2DistanceMinimum
+        && yOffset > yThresholdRight
+        && yOffset < yThresholdRightMax
+        && angleOffset < angleThreshold
+        && angleOffset > -4.0;
+    boolean canScoreL3Left = xOffset < L3DistanceThreshold
+        && xOffset > L3DistanceMinimum
+        && yOffset < yThresholdLeft
+        && yOffset > yThresholdLeftMax
+        && angleOffset < angleThreshold
+        && angleOffset > -4.0;
+    boolean canScoreL3Right = xOffset < L3DistanceThreshold
+        && xOffset > L3DistanceMinimum
+        && yOffset > yThresholdRight
+        && yOffset < yThresholdRightMax
+        && angleOffset < angleThreshold
+        && angleOffset > -4.0;
 
     if (L2) {
       if (isLeft) {
@@ -146,9 +142,10 @@ public class Vision extends SubsystemBase {
         return;
       }
 
-      // Optional<EstimatedRobotPose> poseEstimate = photonPoseEstimator.update(lastResult);
+      // Optional<EstimatedRobotPose> poseEstimate =
+      // photonPoseEstimator.update(lastResult);
       // if (poseEstimate.isEmpty()) {
-      //   return;
+      // return;
       // }
 
       // Pose2d robotPose = poseEstimate.get().estimatedPose.toPose2d();

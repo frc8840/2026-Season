@@ -5,9 +5,9 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Logger;
 import frc.robot.Settings;
+import frc.robot.swerve.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
 
@@ -25,7 +25,7 @@ public class IndexerSubsystem extends SubsystemBase {
 
         // Updating Settings
         motor.getConfigurator().apply(motorConfig);
-                Logger.Log("IndexerSubsystem() constructed");
+        Logger.Log("IndexerSubsystem() constructed");
     }
 
     public void indexify() {
