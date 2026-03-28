@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.swerve;
 
 import com.ctre.phoenix6.Orchestra;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Logger;
+import frc.robot.subsystems.KrakenSwerveModule;
 
 public class SwerveSubsystem extends SubsystemBase {
   private final AHRS gyro;
@@ -31,16 +31,13 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public SwerveSubsystem() {
     gyro = new AHRS(NavXComType.kMXP_SPI);
-    // new Thread(() -> {
-    // try {
-    // Thread.sleep(5000);
-    // zeroGyro();
-    // } catch (Exception e) {
-    // }
-
-    // }).start();
-
-    zeroGyro();
+    new Thread(() -> {
+      try {
+        Thread.sleep(5000);
+        zeroGyro();
+      } catch (Exception e) {
+      }
+    }).start();
 
     SwerveModulePosition[] startPositions = new SwerveModulePosition[4];
     for (int i = 0; i < 4; i++) {
@@ -185,9 +182,11 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
-  // used by auto
+  // used by autonomous command to operate the swerve system
   public void setModuleStates(SwerveModuleState[] desiredStates) {
+    Logger.LogPeriodic("setModuleStates called with");
     for (int i = 0; i < mSwerveMods.length; i++) {
+      Logger.LogPeriodic(i + ": " + desiredStates[i]);
       mSwerveMods[i].setDesiredState(desiredStates[i]);
     }
   }

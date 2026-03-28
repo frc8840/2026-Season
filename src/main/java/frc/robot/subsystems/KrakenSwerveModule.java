@@ -10,9 +10,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.lib.config.KrakenModuleConstants;
 import frc.lib.math.OnboardModuleState;
-import frc.robot.Constants;
 import frc.robot.Logger;
 import frc.robot.Robot;
+import frc.robot.swerve.Constants;
 
 public class KrakenSwerveModule {
 

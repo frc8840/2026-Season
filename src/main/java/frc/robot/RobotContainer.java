@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -15,16 +14,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.Swerve;
-import frc.robot.commands.AutoCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.DriverCommand;
 import frc.robot.commands.OperatorCommand;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakePosSubsystem;
 import frc.robot.subsystems.IntakeSpinnerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.swerve.Constants;
+import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.swerve.Constants.AutoConstants;
+import frc.robot.swerve.Constants.Swerve;
 
 public class RobotContainer {
 
@@ -46,15 +46,20 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
+    Logger.Log("getAutoCommand() called");
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(Constants.AutoConstants.kMaxSpeedMetersPerSecond,
         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
         .setKinematics(Constants.Swerve.swerveKinematics);
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(),
-        new Pose2d(2, 0, Rotation2d.fromDegrees(0)),
+        List.of(
+            new Translation2d(1, 0),
+            new Translation2d(1, -1)),
+        new Pose2d(2, -1, new Rotation2d(0)),
         trajectoryConfig);
+    Logger.Log("trajectory generated!");
+    Logger.Log("" + trajectory);
 
     PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
     PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
@@ -71,16 +76,27 @@ public class RobotContainer {
         thController,
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
+    Logger.Log("swerveControlledCommand defined!!!");
+    Logger.Log("" + swerveControllerCommand);
 
-    return new SequentialCommandGroup(
+    Command command = new SequentialCommandGroup(
+        new InstantCommand(() -> waitFor(3)),
         new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
         swerveControllerCommand,
         new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
-        new InstantCommand(() -> indexerSubsystem.indexify(), indexerSubsystem),
-        new InstantCommand(() -> shooterSubsystem.run_05(), shooterSubsystem));
+        new InstantCommand(() -> waitFor(3)));
+    Logger.Log("Defined SequentialCommandGroup");
+    return command;
+  }
 
-    // new InstantCommand(() -> intakePosSubsystem.setPositionOpen(),
-    // intakePosSubsystem)
+  public void waitFor(int seconds) {
+    Logger.Log("waitFor starting");
+    try {
+      Thread.sleep(seconds * 1000);
+    } catch (InterruptedException e) {
+      // do nothing
+    }
+    Logger.Log("waitFor ending");
   }
 
   public RobotContainer() {
@@ -92,16 +108,16 @@ public class RobotContainer {
     swerveSubsystem.setDefaultCommand(driverCommand);
 
     // construct and link together operator command
-    intakeSpinnerSubsystem = new IntakeSpinnerSubsystem();
-    intakePosSubsystem = new IntakePosSubsystem();
+    // intakeSpinnerSubsystem = new IntakeSpinnerSubsystem();
+    // intakePosSubsystem = new IntakePosSubsystem();
     // shooterSubsystem = new ShooterSubsystem();
-    indexerSubsystem = new IndexerSubsystem();
+    // indexerSubsystem = new IndexerSubsystem();
 
     operatorCommand = new OperatorCommand(intakeSpinnerSubsystem, intakePosSubsystem, shooterSubsystem,
         indexerSubsystem);
-    intakeSpinnerSubsystem.setDefaultCommand(operatorCommand);
-    intakePosSubsystem.setDefaultCommand(operatorCommand);
+    // intakeSpinnerSubsystem.setDefaultCommand(operatorCommand);
+    // intakePosSubsystem.setDefaultCommand(operatorCommand);
     // shooterSubsystem.setDefaultCommand(operatorCommand);
-    indexerSubsystem.setDefaultCommand(operatorCommand);
+    // indexerSubsystem.setDefaultCommand(operatorCommand);
   }
 }

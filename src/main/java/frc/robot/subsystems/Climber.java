@@ -6,8 +6,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.ClosedLoopSlot;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Settings;
+import frc.robot.swerve.Constants;
 
 public class Climber extends SubsystemBase {
 
@@ -75,15 +75,13 @@ public class Climber extends SubsystemBase {
 
     // set Motion Magic settings
     var motionMagicConfigs = cMotorConfig.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity =
-        20; // Target cruise velocity of 20 rps, CHANGE THESE NUMBERS
-    motionMagicConfigs.MotionMagicAcceleration =
-        160; // Target acceleration of 160 rps/s, CHANGE THESE NUMBERS
-    motionMagicConfigs.MotionMagicJerk =
-        1600; // Target jerk of 1600 rps/s/s (0.1 seconds), CHANGE THESE NUMBERS
+    motionMagicConfigs.MotionMagicCruiseVelocity = 20; // Target cruise velocity of 20 rps, CHANGE THESE NUMBERS
+    motionMagicConfigs.MotionMagicAcceleration = 160; // Target acceleration of 160 rps/s, CHANGE THESE NUMBERS
+    motionMagicConfigs.MotionMagicJerk = 1600; // Target jerk of 1600 rps/s/s (0.1 seconds), CHANGE THESE NUMBERS
 
     // lController.setOutputRange(kMinOutput, kMaxOutput);
-    // cMotorConfig.closedLoop.maxMotion.maxVelocity(slowVel, smartMotionSlot); //Commented out, not
+    // cMotorConfig.closedLoop.maxMotion.maxVelocity(slowVel, smartMotionSlot);
+    // //Commented out, not
     // sure if needed
     // lController.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
     // lController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);

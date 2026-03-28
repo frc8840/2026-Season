@@ -53,16 +53,6 @@ public class OperatorCommand extends Command {
   // this gets called every X milliseconds (20ms?)
   @Override
   public void execute() {
-    // intake pos
-    // if (ps4controller.getSquareButtonPressed()) {
-    // Logger.Log("Square button pressed");
-    // if (!isIntakeOpen) {
-    // intakePos.setPositionOpen();
-    // } else {
-    // intakePos.setPositionClosed();
-    // }
-    // isIntakeOpen = !isIntakeOpen;
-    // }
 
     if (ps4controller.getL1ButtonPressed()) {
       intakePos.setPositionClosedTimer();

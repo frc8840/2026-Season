@@ -5,8 +5,9 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Settings;
+import frc.robot.swerve.Constants;
+
 import java.util.Date;
 
 public class ArmShooter extends SubsystemBase {
@@ -24,8 +25,7 @@ public class ArmShooter extends SubsystemBase {
     talonFXConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     talonFXConfigs.CurrentLimits.SupplyCurrentLimit = 40; // was 100, 80, just used 100
-    talonFXConfigs.CurrentLimits.SupplyCurrentLimitEnable =
-        Constants.Swerve.supplyCurrentLimitEnable;
+    talonFXConfigs.CurrentLimits.SupplyCurrentLimitEnable = Constants.Swerve.supplyCurrentLimitEnable;
 
     // set PID slot 0 gains
     var slot0Configs = talonFXConfigs.Slot0;
@@ -49,25 +49,24 @@ public class ArmShooter extends SubsystemBase {
   @Override
   public void periodic() {
     // Shuffleboard.getTab("LiveWindow")
-    //     .add("Shooter Speed", shooterMotor.getVelocity().getValueAsDouble())
-    //     .withWidget("Simple Dial")
-    //     .withPosition(4, 0)
-    //     .withSize(1, 1);
-    // SmartDashboard.putNumber("Shooter speed ", shooterMotor.getVelocity().getValueAsDouble());
+    // .add("Shooter Speed", shooterMotor.getVelocity().getValueAsDouble())
+    // .withWidget("Simple Dial")
+    // .withPosition(4, 0)
+    // .withSize(1, 1);
+    // SmartDashboard.putNumber("Shooter speed ",
+    // shooterMotor.getVelocity().getValueAsDouble());
   }
 
   // spin the motor 5 rotations forward
   public void intake() {
-    double oldRotations =
-        shooterMotor.getPosition().getValueAsDouble(); // current position in rotation
+    double oldRotations = shooterMotor.getPosition().getValueAsDouble(); // current position in rotation
     shooterMotor.setControl(positionSignal.withPosition(oldRotations - 4.0));
     lastIntake = new Date();
   }
 
   // spin the motor 5 rotations backward
   public void outtake() {
-    double oldRotations =
-        shooterMotor.getPosition().getValueAsDouble(); // current position in rotation
+    double oldRotations = shooterMotor.getPosition().getValueAsDouble(); // current position in rotation
     shooterMotor.setControl(positionSignal.withPosition(oldRotations + 6.0));
     lastIntake = new Date();
   }
