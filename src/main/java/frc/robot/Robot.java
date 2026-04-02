@@ -64,14 +64,13 @@ public class Robot extends TimedRobot {
     LimelightHelpers.setupPortForwardingUSB(0);
     LimelightHelpers.setPipelineIndex("", 0);
     limelightTable.getEntry("stream").setNumber(0);
-    // CameraServer.startAutomaticCapture("", "http://172.28.0.1:5800");
-    // url taken directly from the nt data values but it dpesnt load??? need to fix
 
     // 172.29.0.23 <- nt ip for test roborio
     // http://169.254.77.16:5801/ <- config
     // http://169.254.77.16:5800/ <- stream
 
-    LimelightHelpers.setPipelineIndex("", 0);
+    // config: http://roborio-8840-frc.local:5801/
+    // lowres stream: http://roborio-8840-frc.local:5802/
   }
 
   /**

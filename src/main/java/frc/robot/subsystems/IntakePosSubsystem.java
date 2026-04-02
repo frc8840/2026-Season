@@ -73,7 +73,12 @@ public class IntakePosSubsystem extends SubsystemBase {
 
     public void setPositionClosedTimer() {
         timer.start();
-        motor.setVoltage(-1.5); // counterclockwise
+        motor.setVoltage(-1.8); // counterclockwise
+    }
+
+    public void silly() {
+        timer.start();
+        motor.setVoltage(-1);
     }
 
     public void setPositionOpen() {
@@ -99,7 +104,7 @@ public class IntakePosSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (timer.get() > 1) {
+        if (timer.get() > 0.4) {
             motor.set(0);
             timer.stop();
             timer.reset();
