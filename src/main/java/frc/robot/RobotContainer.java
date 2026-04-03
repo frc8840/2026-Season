@@ -54,10 +54,10 @@ public class RobotContainer {
 
     List<Pose2d> waypoints = List.of(
         new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(Units.inchesToMeters(160), 0, Rotation2d.fromDegrees(-120)),
-        new Pose2d(Units.inchesToMeters(160), Units.inchesToMeters(-90), Rotation2d.fromDegrees(-120)),
-        new Pose2d(Units.inchesToMeters(105), Units.inchesToMeters(0), Rotation2d.fromDegrees(-180)),
-        new Pose2d(Units.inchesToMeters(-112), Units.inchesToMeters(0), Rotation2d.fromDegrees(-180)));
+        new Pose2d(Units.inchesToMeters(160), 0, Rotation2d.fromDegrees(120)),
+        new Pose2d(Units.inchesToMeters(160), Units.inchesToMeters(-90), Rotation2d.fromDegrees(120)),
+        new Pose2d(Units.inchesToMeters(105), Units.inchesToMeters(0), Rotation2d.fromDegrees(180)),
+        new Pose2d(Units.inchesToMeters(-112), Units.inchesToMeters(0), Rotation2d.fromDegrees(180)));
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(waypoints, trajectoryConfig);
     Logger.Log("trajectory generated!");
@@ -82,13 +82,11 @@ public class RobotContainer {
     Logger.Log("" + swerveControllerCommand);
 
     Command command = new SequentialCommandGroup(
-        new InstantCommand(() -> waitFor(1)),
         new InstantCommand(() -> intakePosSubsystem.setPositionOpenTimer(), intakePosSubsystem),
         new InstantCommand(() -> intakeSpinnerSubsystem.spinIn(), intakeSpinnerSubsystem),
         new InstantCommand(() -> swerveSubsystem.resetOdometry(trajectory.getInitialPose()), swerveSubsystem),
         swerveControllerCommand,
-        new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem),
-        new InstantCommand(() -> waitFor(1)));
+        new InstantCommand(() -> swerveSubsystem.stopModules(), swerveSubsystem));
     Logger.Log("Defined SequentialCommandGroup");
     return command;
   }
