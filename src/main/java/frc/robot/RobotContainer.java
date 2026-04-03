@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -51,13 +52,14 @@ public class RobotContainer {
         Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
         .setKinematics(Constants.Swerve.swerveKinematics);
 
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+    List<Pose2d> waypoints = List.of(
         new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(
-            new Translation2d(1, 0),
-            new Translation2d(1, 0)),
-        new Pose2d(2, 0, new Rotation2d(0)),
-        trajectoryConfig);
+        new Pose2d(Units.inchesToMeters(160), 0, Rotation2d.fromDegrees(-120)),
+        new Pose2d(Units.inchesToMeters(160), Units.inchesToMeters(-90), Rotation2d.fromDegrees(-120)),
+        new Pose2d(Units.inchesToMeters(105), Units.inchesToMeters(0), Rotation2d.fromDegrees(-180)),
+        new Pose2d(Units.inchesToMeters(-112), Units.inchesToMeters(0), Rotation2d.fromDegrees(-180)));
+
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(waypoints, trajectoryConfig);
     Logger.Log("trajectory generated!");
     Logger.Log("" + trajectory);
 

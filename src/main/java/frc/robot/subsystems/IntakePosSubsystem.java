@@ -73,12 +73,12 @@ public class IntakePosSubsystem extends SubsystemBase {
 
     public void setPositionClosedTimer() {
         timer.start();
-        motor.setVoltage(-1.8); // counterclockwise
+        motor.setVoltage(-1.9); // counterclockwise
     }
 
     public void silly() {
         timer.start();
-        motor.setVoltage(-1);
+        motor.setVoltage(-1.2);
     }
 
     public void setPositionOpen() {
