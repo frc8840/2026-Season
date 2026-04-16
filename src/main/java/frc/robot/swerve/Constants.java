@@ -81,7 +81,7 @@ public final class Constants {
                 // public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
                 /* Swerve Profiling Values */
-                public static final double maxSpeedMetersPerSecond = 2.0; // meters per second
+                public static final double maxSpeedMetersPerSecond = 4.0; // meters per second
                 public static final double maxAngularVelocityRadiansPerSecond = 1.57; // radians per second, 1.57 == 90
                                                                                       // degree
                                                                                       // turn per second
@@ -102,7 +102,7 @@ public final class Constants {
                 /* Constants for the Kraken swerve modules */
                 public static final KrakenModuleConstants FLKrakenConstants = new KrakenModuleConstants(34, 37, 54,
                                 Rotation2d.fromRotations(0.664));
-                public static final KrakenModuleConstants FRKrakenConstants = new KrakenModuleConstants(29, 31, 53,
+                public static final KrakenModuleConstants FRKrakenConstants = new KrakenModuleConstants(38, 31, 53,
                                 Rotation2d.fromRotations(0.912));
                 public static final KrakenModuleConstants BLKrakenConstants = new KrakenModuleConstants(25, 27, 52,
                                 Rotation2d.fromRotations(0.817));
@@ -111,7 +111,7 @@ public final class Constants {
         }
 
         public static final class AutoConstants {
-                public static final double kMaxSpeedMetersPerSecond = 2.0;
+                public static final double kMaxSpeedMetersPerSecond = 2.5;
                 public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
                 public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
                 public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI;
